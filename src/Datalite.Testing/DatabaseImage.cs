@@ -70,6 +70,9 @@ namespace Datalite.Testing
                 Address = ep.Address.ToString();
                 Port = ep.Port;
 
+                if (Address == "0.0.0.0")
+                    Address = "127.0.0.1";
+
                 Console.WriteLine($"{Address}:{Port}");
 
                 Console.WriteLine("Wait for a usable connection before continuing..");
