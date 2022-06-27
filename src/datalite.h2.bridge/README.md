@@ -4,4 +4,5 @@ This is a Java class that is used to process queries against H2 databases. .NET 
 
 It works great, however I'm not written any Java since my "hello world" days at uni! So for any Java developers reviewing this code..
 
-![](C:\Users\chris.wood\Source\Repos\Datalite\src\datalite.h2.bridge\forgiveme.gif)
+![](https://raw.githubusercontent.com/cpwood/Datalite/develop/src/datalite.h2.bridge/forgiveme.gif)
+

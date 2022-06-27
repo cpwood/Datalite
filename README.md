@@ -1,4 +1,4 @@
-# Datalite ![](C:\Users\chris.wood\Source\Repos\Datalite\datalite-logo-64.png)
+# Datalite ![](https://raw.githubusercontent.com/cpwood/Datalite/develop/datalite-logo-64.png)
 A plugin-based Sqlite library that allows you to aggregate data from many different sources with minimal code.
 
 ## What you can use it for
