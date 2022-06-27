@@ -14,6 +14,8 @@ using Newtonsoft.Json.Linq;
 var dll = new FileInfo(Assembly.GetExecutingAssembly().Location);
 var dir = dll.Directory!;
 
+var jsonFile = Path.Combine(dir.FullName, "tests.json");
+
 while (dir.Name != "src")
 {
     dir = dir.Parent!;
@@ -26,7 +28,7 @@ Console.WriteLine($"Working directory is '{directory}'..");
 var psi = new ProcessStartInfo
 {
     FileName = "git",
-    Arguments = "diff --name-only @~..@",
+    Arguments = "diff --name-only HEAD~",
     WorkingDirectory = directory,
     UseShellExecute = false,
     RedirectStandardOutput = true
@@ -53,7 +55,7 @@ using var reader = new StringReader(changes);
 var change = await reader.ReadLineAsync();
 
 var filters = new List<string>();
-var mappings = JArray.Parse(await File.ReadAllTextAsync("tests.json"));
+var mappings = JArray.Parse(await File.ReadAllTextAsync(jsonFile));
 
 while (!string.IsNullOrEmpty(change))
 {
