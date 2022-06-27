@@ -14,9 +14,9 @@ jobs:
         with:
           dotnet-version: '6.x'
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore src/Datalite.sln
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build src/Datalite.sln --configuration Release --no-restore
       #- name: Establish Test Filter
       #  run: dotnet run --project src/TestDeterminer/TestDeterminer.csproj
       - name: Test
