@@ -17,7 +17,11 @@ jobs:
         run: dotnet restore src/Datalite.sln
       - name: Build
         run: dotnet build src/Datalite.sln --configuration Release --no-restore
-      #- name: Establish Test Filter
-      #  run: dotnet run --project src/TestDeterminer/TestDeterminer.csproj
+      - name: Establish Test Filter
+        run: dotnet run --project src/TestDeterminer/TestDeterminer.csproj
+      - name: Set FILTER environment variable
+        run: |
+          F=$(cat filter.txt)
+          echo "FILTER=$F" >> $GITHUB_ENV
       - name: Test
-        run: dotnet test src/Datalite.sln --no-restore
+        run: dotnet test src/Datalite.sln --no-restore --filter "${{ env.FILTER }}"
