@@ -47,6 +47,9 @@ while (!process!.StandardOutput.EndOfStream)
 
 process.WaitForExit();
 
+if (process.ExitCode != 0)
+    throw new Exception("Git command failed!");
+
 var changes = output.ToString().Trim();
 
 Console.WriteLine("Discovering tests..");

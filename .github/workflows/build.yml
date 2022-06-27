@@ -9,6 +9,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
@@ -24,4 +26,4 @@ jobs:
           F=$(cat filter.txt)
           echo "FILTER=$F" >> $GITHUB_ENV
       - name: Test
-        run: dotnet test src/Datalite.sln --no-restore --filter "${{ env.FILTER }}"
+        run: dotnet test src/Datalite.sln --no-restore --filter "${{ env.FILTER }}" 
