@@ -63,7 +63,7 @@ namespace Datalite.Testing
             {
                 Container.Start();
 
-                Console.WriteLine("Started. Getting connection details..");
+                Console.Write("Started. Getting connection details.. ");
 
                 // Get the IP address and port number to use for connections.
                 var ep = Container.ToHostExposedEndpoint($"{port}/tcp");
@@ -103,7 +103,7 @@ namespace Datalite.Testing
 
                 Task.Run(async () => await OnStartupAsync()).Wait();
 
-                Console.WriteLine("Done!");
+                Console.WriteLine("Container ready!");
             }
             catch
             {
