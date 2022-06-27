@@ -1,0 +1,23 @@
+name: Build and Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.x'
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      #- name: Establish Test Filter
+      #  run: dotnet run --project src/TestDeterminer/TestDeterminer.csproj
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
