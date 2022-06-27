@@ -15,7 +15,7 @@ jobs:
       - name: Update version number
         uses: jacobtomlinson/gha-find-replace@v2
         with:
-          find: "\.0\<\/Version\>"
+          find: \.0\<\/Version\>
           replace: ".${{github.run_number}}</Version>"
           include: "**Directory.Build.props"
           regex: true
