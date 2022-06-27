@@ -3,10 +3,8 @@ name: Build and Test
 on: [push]
 
 jobs:
-  build:
-
+  Build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
         with:
@@ -42,3 +40,6 @@ jobs:
           path: "**/test-results.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
+      - name: Publish the packages
+        if: github.ref == 'refs/heads/main'
+        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_TOKEN }} --skip-duplicate

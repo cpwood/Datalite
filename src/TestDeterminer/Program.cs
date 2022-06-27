@@ -74,6 +74,10 @@ while (!string.IsNullOrEmpty(change))
 Console.WriteLine("Writing filter.txt ..");
 
 var filter = string.Join('|', filters.OrderBy(x => x).Distinct().ToArray());
+
+if (string.IsNullOrEmpty(filter))
+    filter = "FullyQualifiedName=RUN.NO.TESTS";
+
 await File.WriteAllTextAsync(Path.Combine(directory, "filter.txt"), filter);
 
 Console.WriteLine($"Filter is: '{filter}'");
