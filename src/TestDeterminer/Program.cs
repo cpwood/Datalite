@@ -41,7 +41,7 @@ var output = new StringBuilder();
 
 while (!process!.StandardOutput.EndOfStream)
 {
-    var line = await process.StandardError.ReadLineAsync();
+    var line = await process.StandardOutput.ReadLineAsync();
     output.AppendLine(line);
 }
 
