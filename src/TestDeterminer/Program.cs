@@ -28,7 +28,7 @@ Console.WriteLine($"Working directory is '{directory}'..");
 var psi = new ProcessStartInfo
 {
     FileName = "git",
-    Arguments = "diff --name-only HEAD~",
+    Arguments = "diff --name-only HEAD^",
     WorkingDirectory = directory,
     UseShellExecute = false,
     RedirectStandardOutput = true
