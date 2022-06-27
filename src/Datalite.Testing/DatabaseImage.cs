@@ -50,6 +50,8 @@ namespace Datalite.Testing
         /// <param name="port">The port number to expose.</param>
         public void Build(string image, string[] environmentVariables, int port)
         {
+            Console.WriteLine("Starting container..");
+
             Container = new Builder().UseContainer()
                 .UseImage(image)
                 .WithEnvironment(environmentVariables)
@@ -61,12 +63,17 @@ namespace Datalite.Testing
             {
                 Container.Start();
 
+                Console.WriteLine("Started. Getting connection details..");
+
                 // Get the IP address and port number to use for connections.
                 var ep = Container.ToHostExposedEndpoint($"{port}/tcp");
                 Address = ep.Address.ToString();
                 Port = ep.Port;
 
-                // Wait for a usable connection before continuing..
+                Console.WriteLine($"{Address}:{Port}");
+
+                Console.WriteLine("Wait for a usable connection before continuing..");
+
                 using var conn = new T();
                 conn.ConnectionString = GetConnectionString(DefaultDatabase);
 
@@ -89,7 +96,11 @@ namespace Datalite.Testing
                 conn.Close();
 
                 // Perform any startup scaffolding, etc.
+                Console.WriteLine("Perform startup actions..");
+
                 Task.Run(async () => await OnStartupAsync()).Wait();
+
+                Console.WriteLine("Done!");
             }
             catch
             {
