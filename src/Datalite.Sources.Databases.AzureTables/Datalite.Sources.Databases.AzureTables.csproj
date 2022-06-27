@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Load data from Azure Storage Tables into Sqlite tables.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Datalite\Datalite.csproj" />
     <PackageReference Include="Azure.Data.Tables" Version="12.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
