@@ -20,4 +20,4 @@ jobs:
       #- name: Establish Test Filter
       #  run: dotnet run --project src/TestDeterminer/TestDeterminer.csproj
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test src/Datalite.sln --no-restore --verbosity normal
