@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Load data from Sqlite tables into Sqlite tables in a separate database.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\datalite-logo.png" Link="datalite-logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Datalite.Sources.Databases.Shared\Datalite.Sources.Databases.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

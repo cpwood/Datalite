@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Description>Load data from JSON files into Sqlite tables.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\datalite-logo.png" Link="datalite-logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Datalite\Datalite.csproj" />
+  </ItemGroup>
+
+</Project>

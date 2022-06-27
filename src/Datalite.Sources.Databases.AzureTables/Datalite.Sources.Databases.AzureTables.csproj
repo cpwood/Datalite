@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Load data from Azure Storage Tables into Sqlite tables.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\datalite-logo.png" Link="datalite-logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Datalite\Datalite.csproj" />
+    <PackageReference Include="Azure.Data.Tables" Version="12.6.0" />
+  </ItemGroup>
+
+</Project>
