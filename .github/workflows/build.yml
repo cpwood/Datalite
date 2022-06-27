@@ -11,6 +11,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+      - uses: actions/checkout@v2
+      - name: Update version number
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: "\.0\<\/Version\>"
+          replace: ".${{github.run_number}}</Version>"
+          include: "**Directory.Build.props"
+          regex: true
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
