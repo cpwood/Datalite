@@ -6,6 +6,9 @@ using Microsoft.Data.Sqlite;
 
 namespace Datalite.Sources.Databases.Sqlite
 {
+    /// <summary>
+    /// Sqlite Extensions
+    /// </summary>
     public static class SqliteExtensions
     {
         /// <summary>

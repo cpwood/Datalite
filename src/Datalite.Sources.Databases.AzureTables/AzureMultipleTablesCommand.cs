@@ -2,6 +2,9 @@ using System.Threading.Tasks;
 
 namespace Datalite.Sources.Databases.AzureTables
 {
+    /// <summary>
+    /// Configures the context for multiple tables.
+    /// </summary>
     public class AzureMultipleTablesCommand
     {
         private readonly AzureTablesDataliteContext _context;

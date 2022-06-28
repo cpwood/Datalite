@@ -2,6 +2,9 @@
 
 namespace Datalite.Sources.Databases.Shared
 {
+    /// <summary>
+    /// Configures the context for a query.
+    /// </summary>
     public class DatabaseQueryCommand
     {
         private readonly DatabaseDataliteContext _context;

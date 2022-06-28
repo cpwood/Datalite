@@ -159,6 +159,7 @@ namespace Datalite.Sources.Databases.Odbc
             return BuildIndexesFromCandidates(candidates);
         }
 
+        /// <inheritdoc />
         public override string ToTableName(TableIdentifier tableIdentifier)
         {
             // We don't know the quote character for identifiers, so don't attempt to use one.
@@ -167,6 +168,7 @@ namespace Datalite.Sources.Databases.Odbc
                 : $"{tableIdentifier.SchemaName}.{tableIdentifier.TableName}";
         }
 
+        /// <inheritdoc />
         public override string ToSqliteTableName(TableIdentifier tableIdentifier)
         {
             if (string.IsNullOrEmpty(tableIdentifier.SchemaName) || tableIdentifier.SchemaName == DefaultSchemaName)
@@ -175,6 +177,7 @@ namespace Datalite.Sources.Databases.Odbc
             return $"{tableIdentifier.SchemaName}_{tableIdentifier.TableName}";
         }
 
+        /// <inheritdoc />
         public override void ValidateTableIdentifier(TableIdentifier tableIdentifier)
         {
             // Don't know enough about the target database system to judge this.

@@ -2,6 +2,9 @@ using Datalite.Exceptions;
 
 namespace Datalite.Sources.Databases.CosmosDb
 {
+    /// <summary>
+    /// Cosmos DB Extensions
+    /// </summary>
     public static class CosmosDbExtensions
     {
         /// <summary>

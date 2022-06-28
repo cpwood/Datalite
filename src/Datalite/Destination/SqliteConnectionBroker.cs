@@ -11,10 +11,13 @@ using Microsoft.Data.Sqlite;
 namespace Datalite.Destination
 {
     // ReSharper disable once InvalidXmlDocComment
+
+#pragma warning disable CS1574 // XML comment has cref attribute that could not be resolved
     /// <summary>
     /// Acts as a broker to either a <see cref="SqliteConnection"/> object or a <see cref="System.Data.SQLite.SQLiteConnection"/> object.
     /// </summary>
     public class SqliteConnectionBroker
+#pragma warning restore CS1574 // XML comment has cref attribute that could not be resolved
     {
         /// <summary>
         /// The Sqlite database connection.

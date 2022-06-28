@@ -24,6 +24,11 @@ namespace Datalite.Sources.Databases.Shared
         /// </summary>
         protected DbConnection SourceConnection { get; }
 
+        /// <summary>
+        /// Constructor for the abstract class.
+        /// </summary>
+        /// <param name="sqliteConnection">The Sqlite connection.</param>
+        /// <param name="sourceConnection">The source database connection.</param>
         protected DatabaseService(
             SqliteConnectionBroker sqliteConnection,
             DbConnection sourceConnection)

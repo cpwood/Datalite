@@ -45,8 +45,10 @@ namespace Datalite.Sources.Databases.SqlServer
             // return.
             sql = $"SELECT * FROM ({sql}) AS XXYYZZ WHERE 1 = 2";
 
-            var cmd = new SqlCommand(sql, _sqlConnection);
-            cmd.CommandText = sql;
+            var cmd = new SqlCommand(sql, _sqlConnection)
+            {
+                CommandText = sql
+            };
 
             await using var reader = await cmd.ExecuteReaderAsync();
             var schemaTable = reader.GetSchemaTable();

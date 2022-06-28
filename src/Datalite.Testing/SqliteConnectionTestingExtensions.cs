@@ -8,8 +8,17 @@ using Microsoft.Data.Sqlite;
 
 namespace Datalite.Testing
 {
+    /// <summary>
+    /// Testing extension methods
+    /// </summary>
     public static class SqliteConnectionTestingExtensions
     {
+        /// <summary>
+        /// Load the schema, indexes and data for a table so that unit tests can be performed upon them.
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="table">The table name.</param>
+        /// <returns></returns>
         public static async Task<SqliteTable?> LoadTableAsync(this SqliteConnection connection, string table)
         {
             var opened = false;

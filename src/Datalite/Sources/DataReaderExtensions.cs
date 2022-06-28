@@ -4,6 +4,9 @@ using Datalite.Destination;
 
 namespace Datalite.Sources
 {
+    /// <summary>
+    /// Extension methods for <see cref="IDataReader"/>.
+    /// </summary>
     public static class DataReaderExtensions
     {
         /// <summary>

@@ -16,6 +16,10 @@ namespace Datalite
         /// </summary>
         public List<string[]> Indexes { get; }
 
+        /// <summary>
+        /// Creates a new context and provides the code to run upon conclusion.
+        /// </summary>
+        /// <param name="executionFunction">The code to run upon conclusion.</param>
         protected DataliteContext(Func<DataliteContext, Task> executionFunction)
         {
             _executor = executionFunction;

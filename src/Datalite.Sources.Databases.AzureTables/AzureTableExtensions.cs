@@ -2,6 +2,9 @@ using Datalite.Exceptions;
 
 namespace Datalite.Sources.Databases.AzureTables
 {
+    /// <summary>
+    /// Azure Table Extensions.
+    /// </summary>
     public static class AzureTableExtensions
     {
         /// <summary>

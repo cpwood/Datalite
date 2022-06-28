@@ -2,6 +2,9 @@
 
 namespace Datalite.Sources.Databases.Shared
 {
+    /// <summary>
+    /// Configures the context for multiple tables.
+    /// </summary>
     public class DatabaseTablesCommand
     {
         private readonly DatabaseDataliteContext _context;

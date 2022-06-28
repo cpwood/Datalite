@@ -7,6 +7,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Datalite.Destination
 {
+    /// <summary>
+    /// Extension methods for <see cref="Type"/> and <see cref="object"/> records.
+    /// </summary>
     public static class TypeExtensions
     {
         /// <summary>

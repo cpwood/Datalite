@@ -13,8 +13,19 @@ namespace Datalite.Sources.Databases.Shared
         /// </summary>
         public enum CommandType
         {
+            /// <summary>
+            /// Multiple tables
+            /// </summary>
             Tables,
+
+            /// <summary>
+            /// A single table
+            /// </summary>
             Table,
+
+            /// <summary>
+            /// An SQL query
+            /// </summary>
             Query
         }
 
@@ -55,6 +66,11 @@ namespace Datalite.Sources.Databases.Shared
         /// </summary>
         public bool AutoIndexes { get; set; }
 
+        /// <summary>
+        /// Constructor for the context.
+        /// </summary>
+        /// <param name="createdConnection">Whether Datalite created the database connection.</param>
+        /// <param name="executionFunction">The function to execute upon completion of the configuration.</param>
         public DatabaseDataliteContext(
             bool createdConnection,
             Func<DatabaseDataliteContext, Task> executionFunction)

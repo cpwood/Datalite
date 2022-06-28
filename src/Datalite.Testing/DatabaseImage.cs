@@ -8,8 +8,15 @@ using Ductus.FluentDocker.Services.Extensions;
 
 namespace Datalite.Testing
 {
+    /// <summary>
+    /// Orchestrates the running of Docker images for running tests against database servers.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class DatabaseImage<T> where T : DbConnection, IDisposable, new()
     {
+        /// <summary>
+        /// The Docker container.
+        /// </summary>
         protected IContainerService? Container;
 
         /// <summary>
@@ -118,6 +125,9 @@ namespace Datalite.Testing
         /// <returns></returns>
         protected abstract Task OnStartupAsync();
 
+        /// <summary>
+        /// Stop the running Docker container.
+        /// </summary>
         public void Dispose()
         {
             try

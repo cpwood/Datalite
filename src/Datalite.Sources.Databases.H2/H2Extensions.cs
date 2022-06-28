@@ -4,6 +4,9 @@ using Datalite.Sources.Databases.Shared;
 
 namespace Datalite.Sources.Databases.H2
 {
+    /// <summary>
+    /// H2 Extension Methods
+    /// </summary>
     public static class H2Extensions
     {
         /// <summary>

@@ -3,6 +3,9 @@ using Datalite.Destination;
 
 namespace Datalite.Sources.Databases.AzureTables
 {
+    /// <summary>
+    /// Configures the context for a single table.
+    /// </summary>
     public class AzureSingleTableCommand
     {
         private readonly AzureTablesDataliteContext _context;
@@ -35,7 +38,7 @@ namespace Datalite.Sources.Databases.AzureTables
         /// <returns></returns>
         public AzureSingleTableCommand WithColumns(params Column[] columns)
         {
-            _context.TableDefinition = new TableDefinition(_context.OutputTable ?? _context.Table);
+            _context.TableDefinition = new TableDefinition(_context.OutputTable);
 
             foreach (var column in columns)
             {

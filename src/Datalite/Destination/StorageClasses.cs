@@ -3,6 +3,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Datalite.Destination
 {
+    /// <summary>
+    /// Sqlite Storage Classes and utility functions.
+    /// </summary>
     public static class StoragesClasses
     {
         /// <summary>
@@ -10,10 +13,29 @@ namespace Datalite.Destination
         /// </summary>
         public enum StorageClassType
         {
+            /// <summary>
+            /// Integer
+            /// </summary>
             IntegerClass,
+
+            /// <summary>
+            /// Real
+            /// </summary>
             RealClass,
+
+            /// <summary>
+            /// Text
+            /// </summary>
             TextClass,
+
+            /// <summary>
+            /// Blob
+            /// </summary>
             BlobClass,
+
+            /// <summary>
+            /// Numeric
+            /// </summary>
             NumericClass
         }
 
@@ -24,21 +46,15 @@ namespace Datalite.Destination
         /// <returns></returns>
         public static string AsString(this StorageClassType type)
         {
-            switch (type)
+            return type switch
             {
-                case StorageClassType.IntegerClass:
-                    return "INTEGER";
-                case StorageClassType.RealClass:
-                    return "REAL";
-                case StorageClassType.TextClass:
-                    return "TEXT";
-                case StorageClassType.BlobClass:
-                    return "BLOB";
-                case StorageClassType.NumericClass:
-                    return "NUMERIC";
-            }
-
-            return "TEXT";
+                StorageClassType.IntegerClass => "INTEGER",
+                StorageClassType.RealClass => "REAL",
+                StorageClassType.TextClass => "TEXT",
+                StorageClassType.BlobClass => "BLOB",
+                StorageClassType.NumericClass => "NUMERIC",
+                _ => "TEXT"
+            };
         }
 
         /// <summary>
@@ -48,21 +64,15 @@ namespace Datalite.Destination
         /// <returns></returns>
         public static StorageClassType GetStorageClassTypeFromName(string storageClassName)
         {
-            switch (storageClassName)
+            return storageClassName switch
             {
-                case "INTEGER":
-                    return StorageClassType.IntegerClass;
-                case "REAL":
-                    return StorageClassType.RealClass;
-                case "TEXT":
-                    return StorageClassType.TextClass;
-                case "BLOB":
-                    return StorageClassType.BlobClass;
-                case "NUMERIC":
-                    return StorageClassType.NumericClass;
-            }
-
-            return StorageClassType.TextClass;
+                "INTEGER" => StorageClassType.IntegerClass,
+                "REAL" => StorageClassType.RealClass,
+                "TEXT" => StorageClassType.TextClass,
+                "BLOB" => StorageClassType.BlobClass,
+                "NUMERIC" => StorageClassType.NumericClass,
+                _ => StorageClassType.TextClass
+            };
         }
 
         /// <summary>

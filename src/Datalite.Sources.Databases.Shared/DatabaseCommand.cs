@@ -2,10 +2,17 @@
 
 namespace Datalite.Sources.Databases.Shared
 {
+    /// <summary>
+    /// Configures the context for a database.
+    /// </summary>
     public class DatabaseCommand
     {
         private readonly DatabaseDataliteContext _context;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context"></param>
         public DatabaseCommand(DatabaseDataliteContext context)
         {
             _context = context;

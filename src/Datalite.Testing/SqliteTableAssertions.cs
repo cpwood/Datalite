@@ -5,6 +5,9 @@ using FluentAssertions.Execution;
 
 namespace Datalite.Testing
 {
+    /// <summary>
+    /// Extension methods for SqliteTable Fluent Assertions
+    /// </summary>
     public static class SqliteTableAssertionsExtensions
     {
         /// <summary>
@@ -17,15 +20,26 @@ namespace Datalite.Testing
         }
     }
 
+    /// <summary>
+    /// Assertions for Sqlite tables.
+    /// </summary>
     public class SqliteTableAssertions
     {
         private readonly SqliteTable? _table;
 
+        /// <summary>
+        /// Create an instance for the given table.
+        /// </summary>
+        /// <param name="table">The Sqlite table.</param>
         public SqliteTableAssertions(SqliteTable? table)
         {
             _table = table;
         }
 
+        /// <summary>
+        /// The table must exist.
+        /// </summary>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> Exist()
         {
             Execute.Assertion
@@ -34,6 +48,10 @@ namespace Datalite.Testing
             return new AndConstraint<SqliteTableAssertions>(this);
         }
 
+        /// <summary>
+        /// The table mustn't exist.
+        /// </summary>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> NotExist()
         {
             Execute.Assertion
@@ -42,6 +60,11 @@ namespace Datalite.Testing
             return new AndConstraint<SqliteTableAssertions>(this);
         }
 
+        /// <summary>
+        /// The table must have a column that matches the provided specification.
+        /// </summary>
+        /// <param name="column">The column specification.</param>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveColumn(SqliteColumn column)
         {
             Execute.Assertion
@@ -52,6 +75,12 @@ namespace Datalite.Testing
             return new AndConstraint<SqliteTableAssertions>(this);
         }
 
+        /// <summary>
+        /// The table must have a column that matches one of the provided specifications.
+        /// </summary>
+        /// <param name="optionA">A column specification.</param>
+        /// <param name="optionB">A column specification.</param>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveColumn(SqliteColumn optionA, SqliteColumn optionB)
         {
             Execute.Assertion
@@ -64,6 +93,11 @@ namespace Datalite.Testing
             return new AndConstraint<SqliteTableAssertions>(this);
         }
 
+        /// <summary>
+        /// The table must have the provided number of columns.
+        /// </summary>
+        /// <param name="columnCount">The number of columns.</param>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveColumnCount(int columnCount)
         {
             Execute.Assertion
@@ -71,18 +105,12 @@ namespace Datalite.Testing
                 .FailWith($"Expected {columnCount} columns but found {_table?.Columns.Count ?? 0}.");
             return new AndConstraint<SqliteTableAssertions>(this);
         }
-
-        public AndConstraint<SqliteTableAssertions> HaveColumn(string columnName,
-            StoragesClasses.StorageClassType storageClass, bool required)
-        {
-            Execute.Assertion
-                .ForCondition(_table?.Columns.Values.Any(x =>
-                    x.Name == columnName && x.StorageClass == storageClass && x.Required == required) == true)
-                .FailWith(
-                    $"A column named '{columnName}' with a Storage Class of '{storageClass}' that is {(!required ? "not " : "")}required could not be found");
-            return new AndConstraint<SqliteTableAssertions>(this);
-        }
-
+        
+        /// <summary>
+        /// The table must have an index covering the provided columns.
+        /// </summary>
+        /// <param name="columns">The column names.</param>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveIndex(params string[] columns)
         {
             Execute.Assertion
@@ -91,6 +119,11 @@ namespace Datalite.Testing
             return new AndConstraint<SqliteTableAssertions>(this);
         }
 
+        /// <summary>
+        /// The table must have the provided number of rows.
+        /// </summary>
+        /// <param name="rowCount">The number of rows.</param>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveRowCount(int rowCount)
         {
             Execute.Assertion
@@ -99,6 +132,11 @@ namespace Datalite.Testing
             return new AndConstraint<SqliteTableAssertions>(this);
         }
 
+        /// <summary>
+        /// The table must have a row that matches the provided sequence of columnar values.
+        /// </summary>
+        /// <param name="columnValues">The columnar values.</param>
+        /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveRowMatching(params object[] columnValues)
         {
             var stringified = columnValues.Select(x => x.Convert(x.GetType(), StoragesClasses.FromType(x.GetType())))

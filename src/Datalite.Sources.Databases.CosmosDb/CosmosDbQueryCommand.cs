@@ -4,6 +4,9 @@ using Datalite.Destination;
 
 namespace Datalite.Sources.Databases.CosmosDb
 {
+    /// <summary>
+    /// Configures the context for a query.
+    /// </summary>
     public class CosmosDbQueryCommand
     {
         private readonly CosmosDbDataliteContext _context;

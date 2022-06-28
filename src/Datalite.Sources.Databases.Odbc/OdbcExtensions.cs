@@ -4,6 +4,9 @@ using Datalite.Sources.Databases.Shared;
 
 namespace Datalite.Sources.Databases.Odbc
 {
+    /// <summary>
+    /// ODBC Extension methods
+    /// </summary>
     public static class OdbcExtensions
     {
         /// <summary>

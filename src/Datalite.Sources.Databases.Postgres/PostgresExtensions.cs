@@ -4,6 +4,9 @@ using Npgsql;
 
 namespace Datalite.Sources.Databases.Postgres
 {
+    /// <summary>
+    /// Postgres Extensions
+    /// </summary>
     public static class PostgresExtensions
     {
         /// <summary>

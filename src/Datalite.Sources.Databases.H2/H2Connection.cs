@@ -1,10 +1,23 @@
 ﻿namespace Datalite.Sources.Databases.H2
 {
+    /// <summary>
+    /// Stores H2 database connection information.
+    /// </summary>
     public class H2Connection
     {
+        /// <summary>
+        /// Versions of the H2 database format.
+        /// </summary>
         public enum H2Version
         {
+            /// <summary>
+            /// Version 1 of the H2 database format.
+            /// </summary>
             Version1,
+
+            /// <summary>
+            /// Version 2 of the H2 database format.
+            /// </summary>
             Version2
         };
 

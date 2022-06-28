@@ -28,6 +28,7 @@ namespace Datalite.Exceptions
             Data = data;
         }
 
+        /// <inheritdoc />
         public override IDictionary Data { get; }
     }
 }

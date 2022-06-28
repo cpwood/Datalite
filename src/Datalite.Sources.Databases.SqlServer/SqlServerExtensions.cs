@@ -4,6 +4,9 @@ using Datalite.Sources.Databases.Shared;
 
 namespace Datalite.Sources.Databases.SqlServer
 {
+    /// <summary>
+    /// SQL Server Extensions
+    /// </summary>
     public static class SqlServerExtensions
     {
         /// <summary>
