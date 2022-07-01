@@ -71,12 +71,16 @@ while (!string.IsNullOrEmpty(change))
     change = await reader.ReadLineAsync();
 }
 
+// So there is always something in the filter and this will be at the end.
+// This is important for two reasons: firstly, the GitHub Action condition
+// rules sometimes rely on "|" being in the filter (so a proper filter can't
+// be at the end), also to cater for the situation where no tests should be
+// performed.
+filters.Add("FullyQualifiedName=ZZZ");
+
 Console.WriteLine("Writing filter.txt ..");
 
 var filter = string.Join('|', filters.OrderBy(x => x).Distinct().ToArray());
-
-if (string.IsNullOrEmpty(filter))
-    filter = "FullyQualifiedName=RUN.NO.TESTS";
 
 await File.WriteAllTextAsync(Path.Combine(directory, "filter.txt"), filter);
 

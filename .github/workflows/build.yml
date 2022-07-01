@@ -4,7 +4,8 @@ on: [push]
 
 jobs:
   Build:
-    runs-on: ubuntu-latest
+    # Needs to be Windows since we're running ODBC tests.
+    runs-on: windows-latest
     env:
         REMOVE_IMAGES: 'true'
     steps:
@@ -29,9 +30,13 @@ jobs:
       - name: Establish Test Filter
         run: dotnet run --project src/TestDeterminer/TestDeterminer.csproj
       - name: Set FILTER environment variable
+        shell: bash
         run: |
           F=$(cat filter.txt)
           echo "FILTER=$F" >> $GITHUB_ENV
+      - name: Install Microsoft Access ODBC Driver
+        run: choco --yes install access2016runtime
+        if: ${{ contains(env.FILTER, 'Datalite|') || contains(env.FILTER, 'Odbc') || contains(env.FILTER, 'Datalite.Testing|') }}
       - name: Test
         run: dotnet test src/Datalite.sln --no-restore --no-build --configuration Release --filter "${{ env.FILTER }}" --logger "trx;LogFileName=test-results.trx" || true
       - name: Test Report
