@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Datalite.Destination;
@@ -19,7 +20,18 @@ namespace Datalite.Testing
         /// <param name="connection"></param>
         /// <param name="table">The table name.</param>
         /// <returns></returns>
-        public static async Task<SqliteTable?> LoadTableAsync(this SqliteConnection connection, string table)
+        public static Task<SqliteTable?> LoadTableAsync(this SqliteConnection connection, string table)
+        {
+            return LoadTableAsync((DbConnection)connection, table);
+        }
+
+        /// <summary>
+        /// Load the schema, indexes and data for a table so that unit tests can be performed upon them.
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="table">The table name.</param>
+        /// <returns></returns>
+        public static async Task<SqliteTable?> LoadTableAsync(DbConnection connection, string table)
         {
             var opened = false;
 
@@ -38,7 +50,8 @@ namespace Datalite.Testing
                 WHERE       type = 'table'
                 AND         tbl_name = '{table}'";
 
-                var cmd = new SqliteCommand(sql, connection);
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = sql;
                 var result = await cmd.ExecuteScalarAsync();
 
                 if (result == null)
@@ -48,16 +61,17 @@ namespace Datalite.Testing
 
                 // Discover the columns
                 sql = $@"
-                SELECT      name AS Name,
+                SELECT      lower(name) AS Name,
                             type AS StorageClass,
                             [notnull] AS Required
                 FROM        pragma_table_info('{table}')";
 
-                cmd = new SqliteCommand(sql, connection);
+                cmd = connection.CreateCommand();
+                cmd.CommandText = sql;
 
                 await using (var reader = await cmd.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         sqliteTable.Columns.Add(reader.GetString(0), new SqliteColumn(reader.GetString(0),
                             StoragesClasses.GetStorageClassTypeFromName(reader.GetString(1)), reader.GetBoolean(2)));
@@ -67,20 +81,21 @@ namespace Datalite.Testing
                 // Discover the indexes
                 sql = $@"
                 SELECT      i.name AS IndexName,
-                            ic.name AS ColumnName,
+                            lower(ic.name) AS ColumnName,
                             ic.seqno + 1 AS ColumnOrder
                 FROM        pragma_index_list('{table}') AS i
                 CROSS JOIN  pragma_index_xinfo(i.name) AS ic
                 WHERE       ic.name IS NOT NULL
                 ORDER BY    ic.seqno";
 
-                cmd = new SqliteCommand(sql, connection);
+                cmd = connection.CreateCommand();
+                cmd.CommandText = sql;
 
                 var indexes = new List<SqliteIndex>();
 
                 await using (var reader = await cmd.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         indexes.Add(new SqliteIndex(reader.GetString(0), reader.GetString(1), reader.GetInt32(2)));
                     }
@@ -108,27 +123,27 @@ namespace Datalite.Testing
                 SELECT      *
                 FROM        {table}";
 
-                cmd = new SqliteCommand(sql, connection);
+                cmd = connection.CreateCommand();
+                cmd.CommandText = sql;
 
-                var rows = new List<string[]>();
-                var fields = new List<string>();
+                var rows = new List<Dictionary<string, object>>();
 
                 await using (var reader = await cmd.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
-                        fields.Clear();
+                        var values = new Dictionary<string, object>();
 
                         for (var i = 0; i < reader.FieldCount; i++)
                         {
+                            var key = reader.GetName(i);
                             var val = reader.GetValue(i);
 
-                            fields.Add(val == DBNull.Value
-                                ? "NULL"
-                                : val.Convert(val.GetType(), sqliteTable.Columns.Values.ElementAt(i).StorageClass));
+                            if (val != DBNull.Value) 
+                                values.Add(key.ToLowerInvariant(), val);
                         }
 
-                        rows.Add(fields.ToArray());
+                        rows.Add(values);
                     }
                 }
 

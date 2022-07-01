@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("Fiddle")] 
+[assembly:InternalsVisibleTo("Datalite.Sources.Databases.CosmosDb.Tests")] 

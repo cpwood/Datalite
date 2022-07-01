@@ -13,6 +13,20 @@ namespace Datalite.Destination
     public static class TypeExtensions
     {
         /// <summary>
+        /// For a generic <see cref="Object"/>, convert the
+        /// value to a token that can be used in a SQL INSERT statement according to the
+        /// <see cref="StoragesClasses.StorageClassType"/>.
+        /// </summary>
+        /// <param name="value">The original value.</param>
+        /// <param name="to">The <see cref="StoragesClasses.StorageClassType"/> that indicates how the value will be stored.</param>
+        /// <returns></returns>
+        /// <exception cref="NotSupportedException"></exception>
+        public static string Convert(this object? value, StoragesClasses.StorageClassType to)
+        {
+            return value.Convert(value?.GetType() ?? typeof(object), to);
+        }
+
+        /// <summary>
         /// For a generic <see cref="Object"/>, specify the source <see cref="Type"/> and convert the
         /// value to a token that can be used in a SQL INSERT statement according to the
         /// <see cref="StoragesClasses.StorageClassType"/>.

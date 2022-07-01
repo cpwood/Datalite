@@ -133,12 +133,24 @@ namespace Datalite.Sources.Databases.H2
 
             try
             {
-                result = await RunQueryAsync(@"
-                SELECT      TABLE_SCHEMA AS SchemaName,
-                            TABLE_NAME AS TableName
-                FROM        INFORMATION_SCHEMA.TABLES
-                WHERE       TABLE_TYPE = 'TABLE'
-                ORDER BY    TABLE_NAME");
+                if (_h2Connection.Version == H2Connection.H2Version.Version1)
+                {
+                    result = await RunQueryAsync(@"
+                        SELECT      TABLE_SCHEMA AS SchemaName,
+                                    TABLE_NAME AS TableName
+                        FROM        INFORMATION_SCHEMA.TABLES
+                        WHERE       TABLE_TYPE = 'TABLE'
+                        ORDER BY    TABLE_NAME");
+                }
+                else
+                {
+                    result = await RunQueryAsync(@"
+                        SELECT      TABLE_SCHEMA AS SchemaName,
+                                    TABLE_NAME AS TableName
+                        FROM        INFORMATION_SCHEMA.TABLES
+                        WHERE       TABLE_CLASS = 'org.h2.mvstore.db.MVTable'
+                        ORDER BY    TABLE_NAME");
+                }
 
                 var tables = new List<TableIdentifier>();
 
@@ -166,15 +178,24 @@ namespace Datalite.Sources.Databases.H2
 
             try
             {
-                var sql = @$"
-                SELECT      INDEX_NAME AS Name,
-                            INDEX_TYPE_NAME AS OriginalType,
-                            COLUMN_NAME AS ColumnName,
-                            ORDINAL_POSITION AS ColumnOrder
-                FROM        INFORMATION_SCHEMA.INDEXES
-                WHERE       TABLE_SCHEMA = '{tableIdentifier.SchemaName ?? "PUBLIC"}'
-                AND         TABLE_NAME = '{tableIdentifier.TableName}'
-                ORDER BY    1, 4";
+                var sql = _h2Connection.Version == H2Connection.H2Version.Version1 ? @$"
+                    SELECT      INDEX_NAME AS Name,
+                                INDEX_TYPE_NAME AS OriginalType,
+                                COLUMN_NAME AS ColumnName,
+                                ORDINAL_POSITION AS ColumnOrder
+                    FROM        INFORMATION_SCHEMA.INDEXES
+                    WHERE       TABLE_SCHEMA = '{tableIdentifier.SchemaName ?? "PUBLIC"}'
+                    AND         TABLE_NAME = '{tableIdentifier.TableName}'
+                    ORDER BY    1, 4" :
+                    @$"
+                    SELECT      INDEX_NAME AS Name,
+                                'UNKNOWN' AS OriginalType,
+                                COLUMN_NAME AS ColumnName,
+                                ORDINAL_POSITION AS ColumnOrder
+                    FROM        INFORMATION_SCHEMA.INDEX_COLUMNS
+                    WHERE       TABLE_SCHEMA = '{tableIdentifier.SchemaName ?? "PUBLIC"}'
+                    AND         TABLE_NAME = '{tableIdentifier.TableName}'
+                    ORDER BY    1, 4";
 
                 result = await RunQueryAsync(sql);
 
@@ -451,11 +472,6 @@ namespace Datalite.Sources.Databases.H2
                 return tableIdentifier.TableName;
 
             return $"{tableIdentifier.SchemaName}_{tableIdentifier.TableName}";
-        }
-
-        public void ValidateTableIdentifier(TableIdentifier tableIdentifier)
-        {
-            // All characters are valid when quoted.
         }
     }
 }

@@ -10,17 +10,17 @@ namespace Datalite.Testing
         /// <summary>
         /// The name of the column.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The storage class of the column.
         /// </summary>
-        public StoragesClasses.StorageClassType StorageClass { get; }
+        public StoragesClasses.StorageClassType StorageClass { get; set; }
 
         /// <summary>
         /// Whether the column allows NULLs or if it is required.
         /// </summary>
-        public bool Required { get; }
+        public bool Required { get; set; }
 
         /// <summary>
         /// Creates a column for a Sqlite table.

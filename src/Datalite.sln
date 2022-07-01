@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Databases.H2", "Datalite.Sources.Databases.H2\Datalite.Sources.Databases.H2.csproj", "{A1159C4A-9659-43F7-BF1E-4308474CD629}"
 EndProject
@@ -36,6 +36,21 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Databases.SqlServer.Tests", "Datalite.Sources.Databases.SqlServer.Tests\Datalite.Sources.Databases.SqlServer.Tests.csproj", "{B111951A-1C2B-45BB-AAEE-87E51B299A2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDeterminer", "TestDeterminer\TestDeterminer.csproj", "{342D681F-0E13-4E0F-9C1F-F3C119DD526D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Files.Parquet.Tests", "Datalite.Sources.Files.Parquet.Tests\Datalite.Sources.Files.Parquet.Tests.csproj", "{EFBEF964-40EE-4438-A2A2-51D6E1694A86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Files.Csv.Tests", "Datalite.Sources.Files.Csv.Tests\Datalite.Sources.Files.Csv.Tests.csproj", "{6FA1AF54-A750-4768-B8A9-2F97E466941B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Databases.H2.Tests", "Datalite.Sources.Databases.H2.Tests\Datalite.Sources.Databases.H2.Tests.csproj", "{AE618134-7067-4FBC-BFD0-B2DE3DD87A01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Databases.AzureTables.Tests", "Datalite.Sources.Databases.AzureTables.Tests\Datalite.Sources.Databases.AzureTables.Tests.csproj", "{A09ABE29-58B1-487C-B0E0-3D3465FF76D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61D7661F-5BCB-4D6F-9363-146642565120}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Databases.CosmosDb.Tests", "Datalite.Sources.Databases.CosmosDb.Tests\Datalite.Sources.Databases.CosmosDb.Tests.csproj", "{AF1CDA5A-9220-4CE2-99AA-3D02814427CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +126,26 @@ Global
 		{342D681F-0E13-4E0F-9C1F-F3C119DD526D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{342D681F-0E13-4E0F-9C1F-F3C119DD526D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{342D681F-0E13-4E0F-9C1F-F3C119DD526D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFBEF964-40EE-4438-A2A2-51D6E1694A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFBEF964-40EE-4438-A2A2-51D6E1694A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFBEF964-40EE-4438-A2A2-51D6E1694A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFBEF964-40EE-4438-A2A2-51D6E1694A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA1AF54-A750-4768-B8A9-2F97E466941B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA1AF54-A750-4768-B8A9-2F97E466941B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA1AF54-A750-4768-B8A9-2F97E466941B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA1AF54-A750-4768-B8A9-2F97E466941B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE618134-7067-4FBC-BFD0-B2DE3DD87A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE618134-7067-4FBC-BFD0-B2DE3DD87A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE618134-7067-4FBC-BFD0-B2DE3DD87A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE618134-7067-4FBC-BFD0-B2DE3DD87A01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A09ABE29-58B1-487C-B0E0-3D3465FF76D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A09ABE29-58B1-487C-B0E0-3D3465FF76D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A09ABE29-58B1-487C-B0E0-3D3465FF76D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A09ABE29-58B1-487C-B0E0-3D3465FF76D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF1CDA5A-9220-4CE2-99AA-3D02814427CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF1CDA5A-9220-4CE2-99AA-3D02814427CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF1CDA5A-9220-4CE2-99AA-3D02814427CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF1CDA5A-9220-4CE2-99AA-3D02814427CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

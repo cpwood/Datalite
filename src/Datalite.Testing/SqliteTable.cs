@@ -36,6 +36,6 @@ namespace Datalite.Testing
         /// <summary>
         /// The rows in the table.
         /// </summary>
-        public string[][] Rows { get; set; } = Array.Empty<string[]>();
+        public Dictionary<string,object>[] Rows { get; set; } = Array.Empty<Dictionary<string,object>>();
     }
 }

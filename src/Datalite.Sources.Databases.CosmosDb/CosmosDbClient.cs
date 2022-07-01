@@ -10,9 +10,11 @@ namespace Datalite.Sources.Databases.CosmosDb
     {
         private readonly Container _container;
 
+        internal static CosmosClientOptions CosmosOptions { get; set; } = new CosmosClientOptions();
+
         public CosmosDbClient(CosmosDbConnection connection)
         {
-            var client = new CosmosClient(connection.Url, connection.Key);
+            var client = new CosmosClient(connection.Url, connection.Key, CosmosOptions);
             _container = client.GetContainer(connection.Database, connection.Container);
         }
 

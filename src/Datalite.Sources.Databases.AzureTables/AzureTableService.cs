@@ -101,13 +101,13 @@ namespace Datalite.Sources.Databases.AzureTables
 
             foreach (var index in _defaultIndexes)
             {
-                await _sqliteConnection.CreateIndexAsync(table, index);
+                await _sqliteConnection.CreateIndexAsync(outputTable, index);
             }
 
             foreach (var index in indexes)
             {
                 if (!_defaultIndexes.Any(x => x.SequenceEqual(index)))
-                    await _sqliteConnection.CreateIndexAsync(table, index);
+                    await _sqliteConnection.CreateIndexAsync(outputTable, index);
             }
         }
 
@@ -183,7 +183,7 @@ namespace Datalite.Sources.Databases.AzureTables
                 {
                     if (item.TryGetValue(column.Name, out var value) && value != null)
                     {
-                        values.Add(value.Convert(column.Type, column.StorageClass));
+                        values.Add(value.Convert(column.StorageClass));
                     }
                     else
                     {

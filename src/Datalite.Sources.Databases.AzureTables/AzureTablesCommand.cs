@@ -42,6 +42,7 @@
         public AzureSingleTableCommand FromTable(string tableName)
         {
             _context.Mode = AzureTablesDataliteContext.CommandType.Table;
+            _context.Table = tableName;
             return new AzureSingleTableCommand(_context);
         }
     }
