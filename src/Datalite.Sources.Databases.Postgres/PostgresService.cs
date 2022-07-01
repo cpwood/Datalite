@@ -27,10 +27,11 @@ namespace Datalite.Sources.Databases.Postgres
         public override async Task<TableIdentifier[]> GetAllTablesAsync()
         {
             return (await _sourceConnection.QueryAsync<TableIdentifier>(@"
-                SELECT      SCHEMA_NAME AS SchemaName,
+                SELECT      TABLE_SCHEMA AS SchemaName,
                             TABLE_NAME AS TableName
                 FROM        INFORMATION_SCHEMA.TABLES
-                WHERE       TABLE_TYPE = 'TABLE'
+                WHERE       TABLE_TYPE = 'BASE TABLE'
+                AND         TABLE_SCHEMA NOT IN ('pg_catalog', 'information_schema')
                 ORDER BY    TABLE_NAME")).ToArray();
         }
 
@@ -78,14 +79,31 @@ namespace Datalite.Sources.Databases.Postgres
         public override async Task<IEnumerable<string[]>> DiscoverTableIndexesAsync(TableIdentifier tableIdentifier)
         {
             var sql = @$"
-                SELECT      INDEX_NAME AS Name,
-                            INDEX_TYPE_NAME AS OriginalType,
-                            COLUMN_NAME AS ColumnName,
-                            ORDINAL_POSITION AS ColumnOrder
-                FROM        INFORMATION_SCHEMA.INDEXES
-                WHERE       TABLE_SCHEMA = '{tableIdentifier.SchemaName ?? "PUBLIC"}'
-                AND         TABLE_NAME = '{tableIdentifier.TableName}'
-                ORDER BY    1, 4";
+                    SELECT      i.relname AS Name,
+                                case when ix.indisprimary = true then 'PrimaryKey' else 'Index' end as OriginalType,
+                                a.attname AS ColumnName,
+                                (
+                                    SELECT i
+                                    FROM
+                                        (
+                                        SELECT      *,
+                                                    row_number() OVER () i
+                                        FROM        unnest(indkey)
+                                        WITH        ORDINALITY AS a(v)
+                                        ) a
+                                    WHERE v = attnum
+                                ) as ColumnOrder
+                    FROM        pg_class t
+                    LEFT JOIN   pg_index ix ON t.oid = ix.indrelid
+                    LEFT JOIN   pg_class i ON i.oid = ix.indexrelid
+                    LEFT JOIN   pg_attribute a ON a.attrelid = t.oid
+                    LEFT JOIN   pg_catalog.pg_namespace n ON n.oid = t.relnamespace
+                    WHERE       a.attnum = ANY (ix.indkey)
+                    AND         t.relkind = 'r'
+                    AND         n.nspname = '{tableIdentifier.SchemaName ?? "public"}'
+                    AND         t.relname = '{tableIdentifier.TableName}'
+                    ORDER BY    Name,
+                                ColumnOrder";
 
             var candidates = await _sourceConnection.QueryAsync<IndexCandidate>(sql);
             return BuildIndexesFromCandidates(candidates);
@@ -100,7 +118,7 @@ namespace Datalite.Sources.Databases.Postgres
 
         public override string ToSqliteTableName(TableIdentifier tableIdentifier)
         {
-            if (string.IsNullOrEmpty(tableIdentifier.SchemaName) || tableIdentifier.SchemaName == "PUBLIC")
+            if (string.IsNullOrEmpty(tableIdentifier.SchemaName) || tableIdentifier.SchemaName == "public")
                 return tableIdentifier.TableName;
 
             return $"{tableIdentifier.SchemaName}_{tableIdentifier.TableName}";
