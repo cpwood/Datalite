@@ -94,24 +94,6 @@ namespace Datalite.Testing
         }
 
         /// <summary>
-        /// The table must have a column that matches one of the provided specifications.
-        /// </summary>
-        /// <param name="optionA">A column specification.</param>
-        /// <param name="optionB">A column specification.</param>
-        /// <returns></returns>
-        public AndConstraint<SqliteTableAssertions> HaveTheColumn(SqliteColumn optionA, SqliteColumn optionB)
-        {
-            Execute.Assertion
-                .ForCondition(Table?.Columns.Values.Any(x =>
-                    (x.Name == optionA.Name && x.StorageClass == optionA.StorageClass && x.Required == optionA.Required) ||
-                              (x.Name == optionB.Name && x.StorageClass == optionB.StorageClass && x.Required == optionB.Required)) == true)
-                .FailWith(
-                    $"A column named '{optionA.Name}' with a Storage Class of '{optionA.StorageClass}' that is {(!optionA.Required ? "not " : "")}required could not be found." +
-                    $"Additionally, a column named '{optionB.Name}' with a Storage Class of '{optionB.StorageClass}' that is {(!optionB.Required ? "not " : "")}required could not be found.");
-            return new AndConstraint<SqliteTableAssertions>(this);
-        }
-
-        /// <summary>
         /// The table must have the provided number of columns.
         /// </summary>
         /// <param name="columnCount">The number of columns.</param>
@@ -149,19 +131,6 @@ namespace Datalite.Testing
             Execute.Assertion
                 .ForCondition(Table?.Rows.Length == rowCount)
                 .FailWith($"Expected {rowCount} rows but found {Table?.Rows.Length ?? 0}.");
-            return new AndConstraint<SqliteTableAssertions>(this);
-        }
-        
-        /// <summary>
-        /// The able must have a row that matches the default set of rows.
-        /// </summary>
-        /// <param name="record"></param>
-        /// <returns></returns>
-        public AndConstraint<SqliteTableAssertions> HaveARowMatching(IRecord record)
-        {
-            Execute.Assertion
-                .ForCondition(Table?.Rows.Any(record.Equals) == true)
-                .FailWith($"Couldn't find a row matching the specification for the row with an identifier of {record.id}");
             return new AndConstraint<SqliteTableAssertions>(this);
         }
 
