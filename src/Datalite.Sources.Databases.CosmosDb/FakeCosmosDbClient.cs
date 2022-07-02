@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
+using Newtonsoft.Json.Linq;
 
 namespace Datalite.Sources.Databases.CosmosDb
 {
@@ -10,9 +12,17 @@ namespace Datalite.Sources.Databases.CosmosDb
     {
         private readonly List<Dictionary<string, object>> _records = new List<Dictionary<string, object>>();
 
-        public void AddRecord(params KeyValuePair<string, object>[] values)
+        public void AddRecord(JObject obj)
         {
-            _records.Add(new Dictionary<string, object>(values));
+            var dictionary = new Dictionary<string, object>(
+                obj.Properties()
+                    .Where(x => x.Value<object>() != null)
+                    .Select(x => new KeyValuePair<string, object>(x.Name, x.Value.ToObject<object>()!)));
+            
+            if (!dictionary.ContainsKey("_ts"))
+                dictionary.Add("_ts", 1656767482);
+            
+            _records.Add(dictionary);
         }
 
         public FeedIterator<Dictionary<string, object>> GetItemQueryIterator(string sql)

@@ -11,7 +11,9 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
             var _ = server;
         }
 
-        [Fact]
+        // TODO: reintroduce once the CosmosDb Emulator Docker image is stable enough.
+        // At the time of writing it, fails far too often and for no good reason with 408 and 503 codes.
+        //[Fact]
         public async void PerformsQuerySuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -19,7 +18,10 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
             CosmosDbClient.CosmosOptions = new CosmosClientOptions
             {
                 // Things can get a bit slow on low-powered machines!
-                RequestTimeout = TimeSpan.FromMinutes(1),
+                //RequestTimeout = TimeSpan.FromMinutes(1),
+
+                // Speed up the insert of data.
+                //AllowBulkExecution = true,
 
                 // Turn off validation of HTTPS certificates.
                 HttpClientFactory = () =>
@@ -39,7 +41,7 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
                 new[] { 8081, 10251, 10252, 10253, 10254 },
                 new[]
                 {
-                    "AZURE_COSMOS_EMULATOR_PARTITION_COUNT=10",
+                    "AZURE_COSMOS_EMULATOR_PARTITION_COUNT=20",
                     "AZURE_COSMOS_EMULATOR_ENABLE_DATA_PERSISTENCE=true",
                     "AZURE_COSMOS_EMULATOR_IP_ADDRESS_OVERRIDE=127.0.0.1"
                 }
@@ -65,7 +67,7 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
             var client = new CosmosClient(Url, Key, CosmosDbClient.CosmosOptions);
 
             var databaseResponse =
-                await client.CreateDatabaseAsync("UnitTests");
+                await client.CreateDatabaseAsync("UnitTests", 10000);
 
             await databaseResponse.Database.CreateContainerAsync("MyData", "/gender");
             
@@ -76,7 +78,7 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
             var file = Path.Combine(dll.DirectoryName!, "Integration", "TestData.json");
 
             using var reader = new StreamReader(file);
-     
+       
             while (!reader.EndOfStream)
             {
                 var line = await reader.ReadLineAsync();
