@@ -24,6 +24,10 @@ namespace Datalite.Sources.Files.Json
                 throw new DataliteException("The path to a JSON file must be provided.");
 
             var f = new FileInfo(filename);
+
+            if (!f.Exists)
+                throw new DataliteException("The JSON file does not exist!");
+
             var tableName = f.Name.Replace(f.Extension, string.Empty);
 
             return adc.FromJson(filename, tableName, jsonl);
@@ -59,6 +63,9 @@ namespace Datalite.Sources.Files.Json
 
             if (string.IsNullOrEmpty(tableName))
                 throw new DataliteException("A valid output table name must be provided.");
+
+            if (!fileSystem.File.Exists(filename))
+                throw new DataliteException("The JSON file does not exist!");
 
             var service = new JsonService(adc.Connection, fileSystem);
             var context = new JsonDataliteContext(filename, tableName, jsonl,

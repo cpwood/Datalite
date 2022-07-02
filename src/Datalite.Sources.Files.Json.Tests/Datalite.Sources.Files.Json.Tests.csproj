@@ -20,4 +20,18 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Datalite.Sources.Files.Json\Datalite.Sources.Files.Json.csproj" />
+    <ProjectReference Include="..\Datalite.Testing\Datalite.Testing.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Integration\NestedTestData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Integration\TestData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

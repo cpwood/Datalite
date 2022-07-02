@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Chris",
+    "description": {
+      "gender": "Male"
+    },
+    "children": [
+      "Tom",
+      "James"
+    ],
+    "developer": true,
+    "somedate": "2022-07-02T807:06:23Z",
+    "missing":  null 
+  },
+  {
+    "id": 2,
+    "name": "Amanda",
+    "description": {
+      "gender": "Female"
+    },
+    "children": [
+      "Tom",
+      "James"
+    ],
+    "developer": false,
+    "somedate": "2022-07-02T807:06:23Z",
+    "missing": null
+  }
+]

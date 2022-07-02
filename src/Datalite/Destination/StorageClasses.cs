@@ -106,6 +106,7 @@ namespace Datalite.Destination
             if (type == typeof(JObject)) return StorageClassType.TextClass;
             if (type == typeof(JArray)) return StorageClassType.TextClass;
             if (type == typeof(DBNull)) return StorageClassType.IntegerClass;
+            if (type == typeof(UnknownDataType)) return StorageClassType.IntegerClass;
             throw new ArgumentOutOfRangeException(nameof(type));
         }
     }

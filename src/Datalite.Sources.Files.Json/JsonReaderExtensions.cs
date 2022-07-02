@@ -26,7 +26,7 @@ namespace Datalite.Sources.Files.Json
                 JsonToken.Null => "NULL",
                 JsonToken.Integer => ((long)reader.Value).As(column.StorageClass),
                 JsonToken.Float => ((double)reader.Value).As(column.StorageClass),
-                _ => reader.Value != null ? (reader.Value.ToString() ?? string.Empty).As(column.StorageClass) : "NULL"
+                _ => reader.Value != null ? (reader.Value.ToString() ?? string.Empty).As(column.StorageClass, column.Interpretation) : "NULL"
             };
         }
     }

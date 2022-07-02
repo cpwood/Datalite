@@ -439,7 +439,7 @@ namespace Datalite.Destination
             if (value.StartsWith("base64:"))
                 return $"x'{ToHexString(System.Convert.FromBase64String(value[7..]))}'";
 
-            return $"x'{Encoding.UTF8.GetBytes(value)}'";
+            return $"x'{ToHexString(Encoding.UTF8.GetBytes(value))}'";
         }
 
         /// <summary>
