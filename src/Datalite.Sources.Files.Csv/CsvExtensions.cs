@@ -24,6 +24,9 @@ namespace Datalite.Sources.Files.Csv
 
             var f = new FileInfo(filename);
 
+            if (!f.Exists)
+                throw new DataliteException("The CSV file does not exist!");
+
             return adc.FromCsv(filename, f.Name.Replace(f.Extension, string.Empty));
         }
 
@@ -55,6 +58,9 @@ namespace Datalite.Sources.Files.Csv
 
             if (string.IsNullOrEmpty(tableName))
                 throw new DataliteException("An output table name must be provided.");
+
+            if (!fileSystem.File.Exists(filename))
+                throw new DataliteException("The CSV file does not exist!");
 
             var service = new CsvService(adc.Connection, fileSystem);
             var context = new CsvDataliteContext(filename, tableName, ctx => service.ExecuteAsync(ctx));

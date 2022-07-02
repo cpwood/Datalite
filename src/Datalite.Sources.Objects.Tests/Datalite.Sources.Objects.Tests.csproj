@@ -20,18 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Integration\TestData2.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Integration\TestData.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Datalite.Sources.Files.Csv\Datalite.Sources.Files.Csv.csproj" />
-    <ProjectReference Include="..\Datalite.Testing\Datalite.Testing.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -6,6 +6,7 @@ using Xunit;
 
 namespace Datalite.Sources.Databases.H2.Tests.Integration
 {
+    [Collection("H2")]
     public class H2V1Tests : TestBaseClass
     {
         private static H2Connection BuildConnection()

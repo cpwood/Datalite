@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace Datalite.Sources.Files.Csv.Tests
+namespace Datalite.Sources.Files.Json.Tests
 {
     public class UnitTest1
     {

@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using Datalite.Sources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -19,11 +21,14 @@ namespace Datalite.Destination
         /// </summary>
         /// <param name="value">The original value.</param>
         /// <param name="to">The <see cref="StoragesClasses.StorageClassType"/> that indicates how the value will be stored.</param>
+        /// <param name="interpretation">Explains how to deal with string data that might be ambiguous.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public static string Convert(this object? value, StoragesClasses.StorageClassType to)
+        public static string Convert(this object? value, 
+            StoragesClasses.StorageClassType to, 
+            StringValueInterpretation interpretation = StringValueInterpretation.Default)
         {
-            return value.Convert(value?.GetType() ?? typeof(object), to);
+            return value.Convert(value?.GetType() ?? typeof(object), to, interpretation);
         }
 
         /// <summary>
@@ -34,9 +39,13 @@ namespace Datalite.Destination
         /// <param name="value">The original value.</param>
         /// <param name="from">How the <see cref="object"/> value should be read.</param>
         /// <param name="to">The <see cref="StoragesClasses.StorageClassType"/> that indicates how the value will be stored.</param>
+        /// <param name="interpretation">Explains how to deal with string data that might be ambiguous.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public static string Convert(this object? value, Type from, StoragesClasses.StorageClassType to)
+        public static string Convert(this object? value, 
+            Type from, 
+            StoragesClasses.StorageClassType to, 
+            StringValueInterpretation interpretation = StringValueInterpretation.Default)
         {
             if (value == null) return "NULL";
             if (value == DBNull.Value) return "NULL";
@@ -64,7 +73,7 @@ namespace Datalite.Destination
             if (from == typeof(JObject)) return ((JObject)value).As(to);
             if (from == typeof(JArray)) return ((JArray)value).As(to);
 
-            throw new NotSupportedException();
+            throw new NotSupportedException($"Cannot convert from a {from.Name} to a {to}.");
         }
 
         /// <summary>
@@ -83,7 +92,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.RealClass => value ? "1" : "0",
                 StoragesClasses.StorageClassType.NumericClass => value ? "1" : "0",
                 StoragesClasses.StorageClassType.TextClass => $"'{value}'",
-                _ => throw new NotSupportedException(),
+                _ => throw new NotSupportedException($"Cannot convert from a bool to a {type}."),
             };
         }
 
@@ -102,7 +111,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.BlobClass => $"x'{ToHexString(new[] { value })}'",
                 StoragesClasses.StorageClassType.IntegerClass => ((int)value).ToString(),
                 StoragesClasses.StorageClassType.NumericClass => ((int)value).ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a byte to a {type}.")
             };
         }
 
@@ -119,7 +128,7 @@ namespace Datalite.Destination
             return type switch
             {
                 StoragesClasses.StorageClassType.BlobClass => $"x'{ToHexString(value)}'",
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a byte array to a {type}.")
             };
         }
 
@@ -138,7 +147,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.BlobClass => $"x'{ToHexString(new[] { (byte)value })}'",
                 StoragesClasses.StorageClassType.IntegerClass => ((int)value).ToString(),
                 StoragesClasses.StorageClassType.NumericClass => ((int)value).ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a sbyte to a {type}.")
             };
         }
 
@@ -156,7 +165,7 @@ namespace Datalite.Destination
             {
                 StoragesClasses.StorageClassType.BlobClass =>
                     $"x'{ToHexString(value.Select(x => (byte)x).ToArray())}'",
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from an sbyte array to a {type}.")
             };
         }
 
@@ -175,7 +184,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.TextClass => $"'{value}'",
                 StoragesClasses.StorageClassType.IntegerClass => ((int)value).ToString(),
                 StoragesClasses.StorageClassType.NumericClass => ((int)value).ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a char to a {type}.")
             };
         }
 
@@ -192,7 +201,7 @@ namespace Datalite.Destination
             return type switch
             {
                 StoragesClasses.StorageClassType.TextClass => $"'{value}'",
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a char array to a {type}.")
             };
         }
 
@@ -212,7 +221,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(CultureInfo.InvariantCulture),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(CultureInfo.InvariantCulture),
                 StoragesClasses.StorageClassType.IntegerClass => ((long)Math.Round(value, 0)).ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a decimal to a {type}.")
             };
         }
 
@@ -232,7 +241,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(CultureInfo.InvariantCulture),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(CultureInfo.InvariantCulture),
                 StoragesClasses.StorageClassType.IntegerClass => ((long)Math.Round(value, 0)).ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a double to a {type}.")
             };
         }
 
@@ -252,7 +261,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(CultureInfo.InvariantCulture),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(CultureInfo.InvariantCulture),
                 StoragesClasses.StorageClassType.IntegerClass => ((long)Math.Round(value, 0)).ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a float to a {type}.")
             };
         }
 
@@ -272,7 +281,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(),
                 StoragesClasses.StorageClassType.IntegerClass => value.ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from an int to a {type}.")
             };
         }
 
@@ -292,7 +301,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(),
                 StoragesClasses.StorageClassType.IntegerClass => value.ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a uint to a {type}.")
             };
         }
 
@@ -312,7 +321,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(),
                 StoragesClasses.StorageClassType.IntegerClass => value.ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a long to a {type}.")
             };
         }
 
@@ -332,7 +341,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(),
                 StoragesClasses.StorageClassType.IntegerClass => value.ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a ulong to a {type}.")
             };
         }
 
@@ -352,7 +361,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(),
                 StoragesClasses.StorageClassType.IntegerClass => value.ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a short to a {type}.")
             };
         }
 
@@ -372,7 +381,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => value.ToString(),
                 StoragesClasses.StorageClassType.RealClass => value.ToString(),
                 StoragesClasses.StorageClassType.IntegerClass => value.ToString(),
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a ushort to a {type}.")
             };
         }
 
@@ -382,17 +391,55 @@ namespace Datalite.Destination
         /// </summary>
         /// <param name="value">The original value.</param>
         /// <param name="type">The <see cref="StoragesClasses.StorageClassType"/> that indicates how the value will be stored.</param>
+        /// <param name="interpretation">Explains how to deal with string data that might be ambiguous.</param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public static string As(this string value, StoragesClasses.StorageClassType type)
+        public static string As(this string value, 
+            StoragesClasses.StorageClassType type, 
+            StringValueInterpretation interpretation = StringValueInterpretation.Default)
         {
+            if (interpretation.HasFlag(StringValueInterpretation.LiteralNullIsNull) && value.ToLowerInvariant() == "null")
+                return "NULL";
+
+            if (interpretation.HasFlag(StringValueInterpretation.EmptyStringIsNull) && string.IsNullOrEmpty(value))
+                return "NULL";
+
+            if (interpretation.HasFlag(StringValueInterpretation.StripAlpha))
+            {
+                value = Regex.Replace(value,
+                    $"[^0-9\\{CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator}\\{CultureInfo.CurrentCulture.NumberFormat.NegativeSign}]",
+                    string.Empty);
+
+                if (!decimal.TryParse(value, out _))
+                    throw new ArgumentException($"Cannot convert the string '{value}' to a number.");
+            }
+
+            if (interpretation.HasFlag(StringValueInterpretation.LocalDate))
+                value = DateTime.Parse(value).ToString("o");
+
             return type switch
             {
-                StoragesClasses.StorageClassType.BlobClass =>
-                    $"x'{ToHexString(value.StartsWith("base64:") ? System.Convert.FromBase64String(value[7..]) : Encoding.UTF8.GetBytes(value))}'",
+                StoragesClasses.StorageClassType.IntegerClass => value,
+                StoragesClasses.StorageClassType.NumericClass => value,
+                StoragesClasses.StorageClassType.RealClass => value,
+                StoragesClasses.StorageClassType.BlobClass => GenerateBytesOutputString(value, interpretation),
                 StoragesClasses.StorageClassType.TextClass => $"'{value.Replace("'", "''")}'",
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a string to a {type}.")
             };
+        }
+
+        private static string GenerateBytesOutputString(string value, StringValueInterpretation interpretation)
+        {
+            if (interpretation.HasFlag(StringValueInterpretation.Base64))
+                return $"x'{ToHexString(System.Convert.FromBase64String(value))}'";
+
+            if (interpretation.HasFlag(StringValueInterpretation.Hex))
+                return $"x'{ToHexString(FromHexString(value))}'";
+
+            if (value.StartsWith("base64:"))
+                return $"x'{ToHexString(System.Convert.FromBase64String(value[7..]))}'";
+
+            return $"x'{Encoding.UTF8.GetBytes(value)}'";
         }
 
         /// <summary>
@@ -412,7 +459,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.NumericClass => ((long)Math.Floor(DateTime.UtcNow.Subtract(value)
                     .TotalSeconds)).ToString(),
                 StoragesClasses.StorageClassType.TextClass => $"'{value:o}'",
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a DateTime to a {type}.")
             };
         }
 
@@ -435,7 +482,7 @@ namespace Datalite.Destination
                     .Subtract(value.DateTime)
                     .TotalSeconds)).ToString(),
                 StoragesClasses.StorageClassType.TextClass => $"'{value:o}'",
-                _ => throw new NotSupportedException()
+                _ => throw new NotSupportedException($"Cannot convert from a DateTimeOffset to a {type}.")
             };
         }
 
@@ -452,7 +499,7 @@ namespace Datalite.Destination
             if (type == StoragesClasses.StorageClassType.TextClass)
                 return $"'{value}'";
 
-            throw new NotSupportedException();
+            throw new NotSupportedException($"Cannot convert from a Guid to a {type}.");
         }
 
         /// <summary>
@@ -468,7 +515,7 @@ namespace Datalite.Destination
             if (type == StoragesClasses.StorageClassType.TextClass)
                 return $"'{value.ToString(Formatting.None).Replace("'", "''")}'";
 
-            throw new NotSupportedException();
+            throw new NotSupportedException($"Cannot convert from a JObject to a {type}.");
         }
 
         /// <summary>
@@ -484,7 +531,7 @@ namespace Datalite.Destination
             if (type == StoragesClasses.StorageClassType.TextClass)
                 return $"'{value.ToString(Formatting.None).Replace("'", "''")}'";
 
-            throw new NotSupportedException();
+            throw new NotSupportedException($"Cannot convert from a JArray to a {type}.");
         }
 
         /// <summary>
@@ -496,6 +543,31 @@ namespace Datalite.Destination
         {
             var hexString = BitConverter.ToString(bytes);
             return hexString.Replace("-", "");
+        }
+
+        /// <summary>
+        /// Converts a hex string to a byte array.
+        /// </summary>
+        /// <param name="hex">The hex string.</param>
+        /// <returns>A byte array.</returns>
+        static byte[] FromHexString(string hex)
+        {
+            if (hex.Contains('x'))
+                hex = hex.Substring(hex.IndexOf('x') + 1);
+
+            hex = Regex.Replace(hex, "[^0-9a-f]", string.Empty, RegexOptions.IgnoreCase);
+
+            if (hex.Length % 2 != 0)
+                throw new ArgumentException("The hex value does not have a valid length.");
+                    
+            var bytes = new byte[hex.Length / 2];
+
+            for (var i = 0; i < hex.Length; i = i + 2)
+            {
+                bytes[i / 2] = byte.Parse(hex.Substring(i, 2), NumberStyles.HexNumber);
+            }
+
+            return bytes;
         }
     }
 }

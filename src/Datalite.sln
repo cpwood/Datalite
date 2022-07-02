@@ -56,6 +56,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Databases.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Databases.Postgres.Tests", "Datalite.Sources.Databases.Postgres.Tests\Datalite.Sources.Databases.Postgres.Tests.csproj", "{59BDF40E-B9AF-4740-A014-EE4950952DF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Files.Json.Tests", "Datalite.Sources.Files.Json.Tests\Datalite.Sources.Files.Json.Tests.csproj", "{240EE901-7677-4536-938C-6063DF9C2CD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Objects.Tests", "Datalite.Sources.Objects.Tests\Datalite.Sources.Objects.Tests.csproj", "{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -158,6 +162,14 @@ Global
 		{59BDF40E-B9AF-4740-A014-EE4950952DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59BDF40E-B9AF-4740-A014-EE4950952DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59BDF40E-B9AF-4740-A014-EE4950952DF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{240EE901-7677-4536-938C-6063DF9C2CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240EE901-7677-4536-938C-6063DF9C2CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240EE901-7677-4536-938C-6063DF9C2CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240EE901-7677-4536-938C-6063DF9C2CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

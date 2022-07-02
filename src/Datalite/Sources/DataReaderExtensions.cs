@@ -39,7 +39,7 @@ namespace Datalite.Sources
             if (type == typeof(ulong)) return reader.GetInt64(position).As(column.StorageClass);
             if (type == typeof(short)) return reader.GetInt16(position).As(column.StorageClass);
             if (type == typeof(ushort)) return reader.GetInt16(position).As(column.StorageClass);
-            if (type == typeof(string)) return reader.GetString(position).As(column.StorageClass);
+            if (type == typeof(string)) return reader.GetString(position).As(column.StorageClass, column.Interpretation);
             if (type == typeof(DateTime)) return reader.GetDateTime(position).As(column.StorageClass);
             if (type == typeof(Guid)) return reader.GetGuid(position).As(column.StorageClass);
 
