@@ -28,7 +28,7 @@ jobs:
           F=$(cat filter.txt)
           echo "FILTER=$F" >> $GITHUB_ENV
       - name: Install Microsoft Access ODBC Driver
-        run: choco --yes install access2016runtime
+        run: choco install -y access2016runtime
         if: ${{ contains(env.FILTER, 'Datalite|') || contains(env.FILTER, 'Odbc') || contains(env.FILTER, 'Datalite.Testing|') }}
       - name: Test
         run: dotnet test src/Datalite.sln --no-restore --no-build --configuration Release --filter "${{ env.FILTER }}" --logger "trx;LogFileName=test-results.trx" || true
