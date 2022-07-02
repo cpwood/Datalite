@@ -10,7 +10,7 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
 {
     public class CosmosDbTestsWithFakes : TestBaseClass
     {
-        private async Task<FakeCosmosDbClient> CreateFakeCosmosDbClientAsync()
+        static async Task<FakeCosmosDbClient> CreateFakeCosmosDbClientAsync()
         {
             var client = new FakeCosmosDbClient();
             var dll = new FileInfo(Assembly.GetExecutingAssembly().Location);
@@ -39,7 +39,7 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
             {
                 await connection
                     .Add()
-                    .FromCosmosDb(await this.CreateFakeCosmosDbClientAsync())
+                    .FromCosmosDb(await CreateFakeCosmosDbClientAsync())
                     .FromQuery("SELECT * FROM c", "TestData")
                     .AddIndex("id")
                     .ExecuteAsync();

@@ -127,7 +127,7 @@ namespace Datalite.Destination
         {
             return type switch
             {
-                StoragesClasses.StorageClassType.BlobClass => $"x'{ToHexString(value)}'",
+                StoragesClasses.StorageClassType.BlobClass => value.Length > 0 ?  $"x'{ToHexString(value)}'" : "NULL",
                 _ => throw new NotSupportedException($"Cannot convert from a byte array to a {type}.")
             };
         }
@@ -164,7 +164,7 @@ namespace Datalite.Destination
             return type switch
             {
                 StoragesClasses.StorageClassType.BlobClass =>
-                    $"x'{ToHexString(value.Select(x => (byte)x).ToArray())}'",
+                    value.Length > 0 ? $"x'{ToHexString(value.Select(x => (byte)x).ToArray())}'" : "NULL",
                 _ => throw new NotSupportedException($"Cannot convert from an sbyte array to a {type}.")
             };
         }
@@ -200,7 +200,7 @@ namespace Datalite.Destination
         {
             return type switch
             {
-                StoragesClasses.StorageClassType.TextClass => $"'{value}'",
+                StoragesClasses.StorageClassType.TextClass => $"'{new string(value)}'",
                 _ => throw new NotSupportedException($"Cannot convert from a char array to a {type}.")
             };
         }
@@ -409,13 +409,15 @@ namespace Datalite.Destination
                 value = Regex.Replace(value,
                     $"[^0-9\\{CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator}\\{CultureInfo.CurrentCulture.NumberFormat.NegativeSign}]",
                     string.Empty);
-
-                if (!decimal.TryParse(value, out _))
-                    throw new ArgumentException($"Cannot convert the string '{value}' to a number.");
             }
 
             if (interpretation.HasFlag(StringValueInterpretation.LocalDate))
                 value = DateTime.Parse(value).ToString("o");
+
+            if ((type == StoragesClasses.StorageClassType.IntegerClass ||
+                 type == StoragesClasses.StorageClassType.NumericClass ||
+                 type == StoragesClasses.StorageClassType.RealClass) && !decimal.TryParse(value, out _))
+                throw new ArgumentException($"Cannot convert the string '{value}' to a number.");
 
             return type switch
             {
@@ -424,7 +426,7 @@ namespace Datalite.Destination
                 StoragesClasses.StorageClassType.RealClass => value,
                 StoragesClasses.StorageClassType.BlobClass => GenerateBytesOutputString(value, interpretation),
                 StoragesClasses.StorageClassType.TextClass => $"'{value.Replace("'", "''")}'",
-                _ => throw new NotSupportedException($"Cannot convert from a string to a {type}.")
+                _ => throw new NotSupportedException()
             };
         }
 
@@ -454,10 +456,8 @@ namespace Datalite.Destination
         {
             return type switch
             {
-                StoragesClasses.StorageClassType.IntegerClass => ((long)Math.Floor(DateTime.UtcNow.Subtract(value)
-                    .TotalSeconds)).ToString(),
-                StoragesClasses.StorageClassType.NumericClass => ((long)Math.Floor(DateTime.UtcNow.Subtract(value)
-                    .TotalSeconds)).ToString(),
+                StoragesClasses.StorageClassType.IntegerClass => ((long)Math.Floor(value.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds)).ToString(),
+                StoragesClasses.StorageClassType.NumericClass => ((long)Math.Floor(value.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds)).ToString(),
                 StoragesClasses.StorageClassType.TextClass => $"'{value:o}'",
                 _ => throw new NotSupportedException($"Cannot convert from a DateTime to a {type}.")
             };
@@ -475,12 +475,8 @@ namespace Datalite.Destination
         {
             return type switch
             {
-                StoragesClasses.StorageClassType.IntegerClass => ((long)Math.Floor(DateTime.UtcNow
-                    .Subtract(value.DateTime)
-                    .TotalSeconds)).ToString(),
-                StoragesClasses.StorageClassType.NumericClass => ((long)Math.Floor(DateTime.UtcNow
-                    .Subtract(value.DateTime)
-                    .TotalSeconds)).ToString(),
+                StoragesClasses.StorageClassType.IntegerClass => ((long)Math.Floor(value.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds)).ToString(),
+                StoragesClasses.StorageClassType.NumericClass => ((long)Math.Floor(value.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds)).ToString(),
                 StoragesClasses.StorageClassType.TextClass => $"'{value:o}'",
                 _ => throw new NotSupportedException($"Cannot convert from a DateTimeOffset to a {type}.")
             };

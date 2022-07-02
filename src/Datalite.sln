@@ -60,6 +60,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Files.Json
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Sources.Objects.Tests", "Datalite.Sources.Objects.Tests\Datalite.Sources.Objects.Tests.csproj", "{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datalite.Tests", "Datalite.Tests\Datalite.Tests.csproj", "{55665A57-2DAF-43C2-8CD0-C4957F80F7FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -170,6 +172,10 @@ Global
 		{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{399B58EE-9BC7-4F73-922B-EB9FBA38B4B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55665A57-2DAF-43C2-8CD0-C4957F80F7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55665A57-2DAF-43C2-8CD0-C4957F80F7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55665A57-2DAF-43C2-8CD0-C4957F80F7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55665A57-2DAF-43C2-8CD0-C4957F80F7FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

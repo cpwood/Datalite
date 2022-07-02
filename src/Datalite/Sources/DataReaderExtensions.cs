@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Linq;
 using Datalite.Destination;
 
 namespace Datalite.Sources
@@ -25,6 +26,11 @@ namespace Datalite.Sources
         {
             var position = reader.GetOrdinal(column.Name);
             var type = reader.GetFieldType(position);
+
+            if (type.GenericTypeArguments.Any())
+                type = type.GenericTypeArguments.First();
+
+            if (reader.IsDBNull(position)) return "NULL";
 
             if (type == typeof(bool)) return reader.GetBoolean(position).As(column.StorageClass);
             if (type == typeof(byte)) return reader.GetByte(position).As(column.StorageClass);
