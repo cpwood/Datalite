@@ -11,7 +11,7 @@ using Datalite.Exceptions;
 using Datalite.Sources.Databases.Shared;
 using Datalite.Sources.Files.Json;
 using Newtonsoft.Json.Linq;
-
+ 
 namespace Datalite.Sources.Databases.H2
 {
     internal class H2Service
