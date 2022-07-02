@@ -183,7 +183,7 @@ namespace Datalite.Sources.Databases.AzureTables
                 {
                     if (item.TryGetValue(column.Name, out var value) && value != null)
                     {
-                        values.Add(value.Convert(column.StorageClass));
+                        values.Add(value.Convert(column.StorageClass, column.Interpretation));
                     }
                     else
                     {

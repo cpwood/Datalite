@@ -103,7 +103,8 @@ namespace Datalite.Sources.Files.Parquet
                         values.Add(column.Data?.GetValue(rowIndex) == null
                             ? "NULL"
                             : column.Data.GetValue(rowIndex).Convert(column.Field.ClrType,
-                                tableDefinition.Columns[column.Field.Name].StorageClass));
+                                tableDefinition.Columns[column.Field.Name].StorageClass,
+                                tableDefinition.Columns[column.Field.Name].Interpretation));
                     }
 
                     builder.AppendLine($"({string.Join(',', values)}),");

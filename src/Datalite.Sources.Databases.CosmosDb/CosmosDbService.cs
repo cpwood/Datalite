@@ -146,7 +146,7 @@ namespace Datalite.Sources.Databases.CosmosDb
                         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                         if (result.ContainsKey(column.Name) && result[column.Name] != null)
                         {
-                            values.Add(result[column.Name].Convert(result[column.Name].GetType(), column.StorageClass));
+                            values.Add(result[column.Name].Convert(result[column.Name].GetType(), column.StorageClass, column.Interpretation));
                         }
                         else
                         {
