@@ -66,7 +66,7 @@ namespace Datalite.Destination
             if (from == typeof(ulong)) return ((ulong)value).As(to);
             if (from == typeof(short)) return ((short)value).As(to);
             if (from == typeof(ushort)) return ((ushort)value).As(to);
-            if (from == typeof(string)) return ((string)value).As(to);
+            if (from == typeof(string)) return ((string)value).As(to, interpretation);
             if (from == typeof(DateTime)) return ((DateTime)value).As(to);
             if (from == typeof(DateTimeOffset)) return ((DateTimeOffset)value).As(to);
             if (from == typeof(Guid)) return ((Guid)value).As(to);
@@ -553,7 +553,7 @@ namespace Datalite.Destination
         static byte[] FromHexString(string hex)
         {
             if (hex.Contains('x'))
-                hex = hex.Substring(hex.IndexOf('x') + 1);
+                hex = hex[(hex.IndexOf('x') + 1)..];
 
             hex = Regex.Replace(hex, "[^0-9a-f]", string.Empty, RegexOptions.IgnoreCase);
 
@@ -562,7 +562,7 @@ namespace Datalite.Destination
                     
             var bytes = new byte[hex.Length / 2];
 
-            for (var i = 0; i < hex.Length; i = i + 2)
+            for (var i = 0; i < hex.Length; i += 2)
             {
                 bytes[i / 2] = byte.Parse(hex.Substring(i, 2), NumberStyles.HexNumber);
             }

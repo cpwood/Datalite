@@ -21,9 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestData.parquet">
+    <None Update="Integration\TestData.parquet">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Datalite.Sources.Files.Parquet\Datalite.Sources.Files.Parquet.csproj" />
+    <ProjectReference Include="..\Datalite.Testing\Datalite.Testing.csproj" />
   </ItemGroup>
 
 </Project>

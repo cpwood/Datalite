@@ -24,6 +24,10 @@ namespace Datalite.Sources.Files.Parquet
 
             var f = new FileInfo(filename);
 
+            if (!f.Exists)
+                throw new DataliteException("The Parquet file does not exist!");
+
+
             return adc.FromParquet(filename, f.Name.Replace(f.Extension, string.Empty));
         }
 
@@ -56,6 +60,9 @@ namespace Datalite.Sources.Files.Parquet
 
             if (string.IsNullOrEmpty(tableName))
                 throw new DataliteException("An output table name must be provided.");
+
+            if (!fileSystem.File.Exists(filename))
+                throw new DataliteException("The Parquet file does not exist!");
 
             var service = new ParquetService(adc.Connection, fileSystem);
             var context = new ParquetDataliteContext(filename, tableName, ctx => service.ExecuteAsync(ctx));

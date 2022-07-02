@@ -94,7 +94,7 @@ namespace Datalite.Sources.Files.Json
                             await JObject.LoadAsync(jsonReader);
 
                             if (serializeNested)
-                                handleProperty(propertyName, typeof(string), columns, columnCounts);
+                                this.HandleProperty(propertyName, typeof(string), columns, columnCounts);
                         }
                         else if (!inRootObject)
                         {
@@ -112,32 +112,32 @@ namespace Datalite.Sources.Files.Json
                             await JArray.LoadAsync(jsonReader);
 
                             if (serializeNested)
-                                handleProperty(propertyName, typeof(string), columns, columnCounts);
+                                this.HandleProperty(propertyName, typeof(string), columns, columnCounts);
                         }
                         break;
                     case JsonToken.PropertyName:
                         propertyName = jsonReader.Value as string;
                         break;
                     case JsonToken.Boolean:
-                        handleProperty(propertyName, typeof(bool), columns, columnCounts);
+                        this.HandleProperty(propertyName, typeof(bool), columns, columnCounts);
                         break;
                     case JsonToken.Bytes:
-                        handleProperty(propertyName, typeof(byte[]), columns, columnCounts);
+                        this.HandleProperty(propertyName, typeof(byte[]), columns, columnCounts);
                         break;
                     case JsonToken.Date:
-                        handleProperty(propertyName, typeof(DateTime), columns, columnCounts);
+                        this.HandleProperty(propertyName, typeof(DateTime), columns, columnCounts);
                         break;
                     case JsonToken.Float:
-                        handleProperty(propertyName, typeof(float), columns, columnCounts);
+                        this.HandleProperty(propertyName, typeof(float), columns, columnCounts);
                         break;
                     case JsonToken.Integer:
-                        handleProperty(propertyName, typeof(long), columns, columnCounts);
+                        this.HandleProperty(propertyName, typeof(long), columns, columnCounts);
                         break;
                     case JsonToken.Null:
-                        handleProperty(propertyName, typeof(UnknownDataType), columns, columnCounts);
+                        this.HandleProperty(propertyName, typeof(UnknownDataType), columns, columnCounts);
                         break;
                     case JsonToken.String:
-                        handleProperty(propertyName, typeof(string), columns, columnCounts);
+                        this.HandleProperty(propertyName, typeof(string), columns, columnCounts);
                         break;
                 }
             }
@@ -159,7 +159,7 @@ namespace Datalite.Sources.Files.Json
             return definition;
         }
 
-        private void handleProperty(string? name,
+        private void HandleProperty(string? name,
             Type type,
             Dictionary<string, Column> columns,
             Dictionary<string, long> columnCounts)
