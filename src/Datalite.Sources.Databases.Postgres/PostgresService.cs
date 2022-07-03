@@ -8,7 +8,7 @@ using Datalite.Destination;
 using Datalite.Exceptions;
 using Datalite.Sources.Databases.Shared;
 using Npgsql;
-
+ 
 namespace Datalite.Sources.Databases.Postgres
 {
     internal class PostgresService : DatabaseService
