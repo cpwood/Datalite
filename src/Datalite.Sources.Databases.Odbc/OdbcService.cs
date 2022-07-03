@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Datalite.Destination;
 using Datalite.Sources.Databases.Shared;
- 
+
 namespace Datalite.Sources.Databases.Odbc
 {
     /// <summary>
