@@ -43,5 +43,6 @@ exec('git diff --name-only HEAD^',
 
     filters.push('FullyQualifiedName=ZZZ');
 
+    console.log(filters.join('|'));
     console.log(`::set-output name=filter::${filters.join('|')}`);
    });

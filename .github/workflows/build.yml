@@ -39,7 +39,7 @@ jobs:
       - name: Install Microsoft Access ODBC Driver
         run: choco install -y access2016runtime
       - name: Test
-        run: dotnet test src/Odbc.sln --no-restore --no-build --configuration Release" --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test src/Odbc.sln --no-restore --no-build --configuration Release --logger "trx;LogFileName=test-results.trx" || true
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
