@@ -52,6 +52,7 @@ jobs:
   Linux:
     runs-on: ubuntu-latest
     needs: [ Determine, Windows ]
+    if: success() || needs.Windows.result == 'skipped'
     env:
         REMOVE_IMAGES: 'true'
     steps:
