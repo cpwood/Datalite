@@ -44,7 +44,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Test Results
+          name: Windows Results
           path: "**/test-results.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
@@ -78,7 +78,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Test Results
+          name: Linux Results
           path: "**/test-results.trx"                            
           reporter: dotnet-trx
           fail-on-error: true

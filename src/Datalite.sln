@@ -35,8 +35,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Databases.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Databases.SqlServer.Tests", "Datalite.Sources.Databases.SqlServer.Tests\Datalite.Sources.Databases.SqlServer.Tests.csproj", "{B111951A-1C2B-45BB-AAEE-87E51B299A2A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDeterminer", "TestDeterminer\TestDeterminer.csproj", "{342D681F-0E13-4E0F-9C1F-F3C119DD526D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Files.Parquet.Tests", "Datalite.Sources.Files.Parquet.Tests\Datalite.Sources.Files.Parquet.Tests.csproj", "{EFBEF964-40EE-4438-A2A2-51D6E1694A86}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datalite.Sources.Files.Csv.Tests", "Datalite.Sources.Files.Csv.Tests\Datalite.Sources.Files.Csv.Tests.csproj", "{6FA1AF54-A750-4768-B8A9-2F97E466941B}"
@@ -132,10 +130,6 @@ Global
 		{B111951A-1C2B-45BB-AAEE-87E51B299A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B111951A-1C2B-45BB-AAEE-87E51B299A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B111951A-1C2B-45BB-AAEE-87E51B299A2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{342D681F-0E13-4E0F-9C1F-F3C119DD526D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{342D681F-0E13-4E0F-9C1F-F3C119DD526D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{342D681F-0E13-4E0F-9C1F-F3C119DD526D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{342D681F-0E13-4E0F-9C1F-F3C119DD526D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFBEF964-40EE-4438-A2A2-51D6E1694A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFBEF964-40EE-4438-A2A2-51D6E1694A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFBEF964-40EE-4438-A2A2-51D6E1694A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
