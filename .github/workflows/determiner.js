@@ -14,7 +14,7 @@
 const fs = require('fs');
 const exec = require('child_process').exec;
 
-const rawdata = fs.readFileSync('tests.json');
+const rawdata = fs.readFileSync('.github/workflows/tests.json');
 const tests = JSON.parse(rawdata);
 
 exec('git diff --name-only HEAD^',
