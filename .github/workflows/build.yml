@@ -15,7 +15,7 @@ jobs:
       - id: determine
         name: Determine tests
         run: |
-          node .github/workflows/determine.js
+          node .github/workflows/determiner.js
 
   Windows:
     runs-on: windows-latest
