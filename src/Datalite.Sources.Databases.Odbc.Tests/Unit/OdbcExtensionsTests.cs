@@ -4,13 +4,12 @@ using Datalite.Destination;
 using Datalite.Exceptions;
 using Datalite.Testing;
 using FluentAssertions;
-using Xunit;
 
 namespace Datalite.Sources.Databases.Odbc.Tests.Unit
 {
     public class OdbcExtensionsTests : TestBaseClass
     {
-        [Fact]
+        [WindowsOnlyFact]
         public async void NullConnectionStringRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
@@ -26,7 +25,7 @@ namespace Datalite.Sources.Databases.Odbc.Tests.Unit
             });
         }
 
-        [Fact]
+        [WindowsOnlyFact]
         public async void NullConnectionRejected()
         {
             OdbcConnection? connection = null;

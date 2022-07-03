@@ -1,0 +1,162 @@
+[
+    {
+        "path": "src/Datalite/",
+        "filters": [
+            "FullyQualifiedName~Datalite"
+        ]
+    },
+    {
+        "path": "src/Datalite.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.AzureTables/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.AzureTables"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.AzureTables.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.AzureTables"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.CosmosDb/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.CosmosDb"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.CosmosDb.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.CosmosDb"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.H2/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.H2"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.H2.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.H2"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.Odbc/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.Odbc"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.Odbc.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.Odbc"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.Postgres/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.Postgres"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.Postgres.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.Postgres"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.Shared/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.Sqlite/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.Sqlite"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.Sqlite.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.Sqlite"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.SqlServer/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.SqlServer"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Databases.SqlServer.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Databases.SqlServer"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Files.Csv/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Files.Csv"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Files.Csv.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Files.Csv"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Files.Json/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Files.Json",
+            "FullyQualifiedName~Datalite.Sources.Databases.H2",
+            "FullyQualifiedName~Datalite.Sources.Objects"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Files.Json.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Files.Json",
+            "FullyQualifiedName~Datalite.Sources.Databases.H2",
+            "FullyQualifiedName~Datalite.Sources.Objects"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Files.Parquet/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Files.Parquet"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Files.Parquet.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Files.Parquet"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Objects/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Objects"
+        ]
+    },
+    {
+        "path": "src/Datalite.Sources.Objects.Tests/",
+        "filters": [
+            "FullyQualifiedName~Datalite.Sources.Objects"
+        ]
+    },
+    {
+        "path": "src/Datalite.Testing/",
+        "filters": [
+            "FullyQualifiedName~Datalite"
+        ]
+    }
+]

@@ -3,15 +3,67 @@ name: Build and Test
 on: [push]
 
 jobs:
-  Build:
-    # Needs to be Windows since we're running ODBC tests.
+  Determine:
+    runs-on: ubuntu-latest
+    outputs:
+      filter: ${{ steps.determine.outputs.filter }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - id: determine
+        name: Determine tests
+        run: |
+          node .github/workflows/determine.js
+
+  Windows:
     runs-on: windows-latest
+    needs: Determine
+    if: ${{ contains(needs.Determine.outputs.filter, 'Datalite|') || contains(needs.Determine.outputs.filter, 'Odbc') || contains(needs.Determine.outputs.filter, 'Datalite.Testing|') }}
     env:
         REMOVE_IMAGES: 'true'
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.x'
+      - name: Install dependencies
+        run: dotnet restore src/Odbc.sln
+      - name: Build
+        run: dotnet build src/Odbc.sln --configuration Release --no-restore
+      - name: Install Microsoft Access ODBC Driver
+        run: choco install -y access2016runtime
+      - name: Test
+        run: dotnet test src/Odbc.sln --no-restore --no-build --configuration Release" --logger "trx;LogFileName=test-results.trx" || true
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: "**/test-results.trx"                            
+          reporter: dotnet-trx
+          fail-on-error: true
+
+  Linux:
+    runs-on: ubuntu-latest
+    needs: [ Determine, Windows ]
+    env:
+        REMOVE_IMAGES: 'true'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Update version number
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: \.0\<\/Version\>
+          replace: ".${{github.run_number}}</Version>"
+          include: "**Directory.Build.props"
+          regex: true
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
@@ -20,18 +72,8 @@ jobs:
         run: dotnet restore src/Datalite.sln
       - name: Build
         run: dotnet build src/Datalite.sln --configuration Release --no-restore
-      - name: Establish Test Filter
-        run: dotnet run --project src/TestDeterminer/TestDeterminer.csproj
-      - name: Set FILTER environment variable
-        shell: bash
-        run: |
-          F=$(cat filter.txt)
-          echo "FILTER=$F" >> $GITHUB_ENV
-      - name: Install Microsoft Access ODBC Driver
-        run: choco install -y access2016runtime
-        if: ${{ contains(env.FILTER, 'Datalite|') || contains(env.FILTER, 'Odbc') || contains(env.FILTER, 'Datalite.Testing|') }}
       - name: Test
-        run: dotnet test src/Datalite.sln --no-restore --no-build --configuration Release --filter "${{ env.FILTER }}" --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test src/Datalite.sln --no-restore --no-build --configuration Release --filter "${{needs.Determine.outputs.filter}}" --logger "trx;LogFileName=test-results.trx" || true
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()

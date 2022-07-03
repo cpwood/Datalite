@@ -2,7 +2,6 @@
 using System.Reflection;
 using Datalite.Destination;
 using Datalite.Testing;
-using Xunit;
 
 namespace Datalite.Sources.Databases.Odbc.Tests.Integration
 {
@@ -16,7 +15,7 @@ namespace Datalite.Sources.Databases.Odbc.Tests.Integration
         }
         
 
-        [Fact]
+        [WindowsOnlyFact]
         public async void CopiesTableSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
@@ -36,7 +35,7 @@ namespace Datalite.Sources.Databases.Odbc.Tests.Integration
             });
         }
 
-        [Fact]
+        [WindowsOnlyFact]
         public async void PerformsQuerySuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>

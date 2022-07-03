@@ -12,7 +12,7 @@ namespace Datalite.Tests.Sources
 {
     public class DataReaderExtensionsTests
     {
-        private string RunTest<T>(T value, StoragesClasses.StorageClassType type)
+        private static string RunTest<T>(T value, StoragesClasses.StorageClassType type)
         {
             var data = new List<ReaderRecord<T>>() { new() { ColumnValue = value } };
             var mock = new Mock<IDataReader>();
