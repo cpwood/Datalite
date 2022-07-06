@@ -41,7 +41,8 @@ namespace Datalite.Sources.Objects
                 {
                     var ser = new JsonSerializer
                     {
-                        Formatting = Formatting.None
+                        Formatting = Formatting.None,
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     };
 
                     ser.Serialize(jsonWriter, context.Objects);
