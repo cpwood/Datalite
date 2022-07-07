@@ -25,15 +25,23 @@
   <ItemGroup>
     <None Update="java\datalite\h2\bridge\Executor.class">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>lib\netstandard2.1\</PackagePath>
     </None>
     <None Update="java\h2-1.4.200\h2-1.4.200.jar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>lib\netstandard2.1\</PackagePath>
     </None>
     <None Update="java\h2-2.1.214\h2-2.1.214.jar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>lib\netstandard2.1\</PackagePath>
     </None>
     <None Update="java\jettison-1.5.0\jettison-1.5.0.jar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>lib\netstandard2.1\</PackagePath>
     </None>
     <None Update="README.md">
       <Pack>True</Pack>
