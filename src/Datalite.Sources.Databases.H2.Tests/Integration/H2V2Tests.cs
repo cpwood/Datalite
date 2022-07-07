@@ -1,15 +1,25 @@
 ﻿using System.IO;
 using System.Reflection;
 using Datalite.Destination;
+using Datalite.Exceptions;
 using Datalite.Sources.Databases.Shared;
 using Datalite.Testing;
+using Newtonsoft.Json;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Datalite.Sources.Databases.H2.Tests.Integration
 {
     [Collection("H2")]
     public class H2V2Tests : TestBaseClass
     {
+        private readonly ITestOutputHelper _outputHelper;
+
+        public H2V2Tests(ITestOutputHelper outputHelper)
+        {
+            _outputHelper = outputHelper;
+        }
+
         private static H2Connection BuildConnection()
         {
             var dll = new FileInfo(Assembly.GetExecutingAssembly().Location);
@@ -24,12 +34,21 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
-                await connection
-                    .Add()
-                    .FromH2(BuildConnection())
-                    .FromTables()
-                    .WithAutomaticIndexes()
-                    .ExecuteAsync();
+                try
+                {
+                    await connection
+                        .Add()
+                        .FromH2(BuildConnection())
+                        .FromTables()
+                        .WithAutomaticIndexes()
+                        .ExecuteAsync();
+                }
+                catch (DataliteException ex)
+                {
+                    _outputHelper.WriteLine(ex.Message);
+                    _outputHelper.WriteLine(JsonConvert.SerializeObject(ex.Data));
+                    throw;
+                }
 
                 var table = await connection.LoadTableAsync("TESTDATA");
                 table
@@ -48,12 +67,21 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
-                await connection
-                    .Add()
-                    .FromH2(BuildConnection())
-                    .FromTables("TESTDATA")
-                    .WithAutomaticIndexes()
-                    .ExecuteAsync();
+                try
+                {
+                    await connection
+                        .Add()
+                        .FromH2(BuildConnection())
+                        .FromTables("TESTDATA")
+                        .WithAutomaticIndexes()
+                        .ExecuteAsync();
+                }
+                catch (DataliteException ex)
+                {
+                    _outputHelper.WriteLine(ex.Message);
+                    _outputHelper.WriteLine(JsonConvert.SerializeObject(ex.Data));
+                    throw;
+                }
 
                 var table = await connection.LoadTableAsync("TESTDATA");
                 table
@@ -72,12 +100,21 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
-                await connection
-                    .Add()
-                    .FromH2(BuildConnection())
-                    .FromTable("TESTDATA")
-                    .WithAutomaticIndexes()
-                    .ExecuteAsync();
+                try
+                {
+                    await connection
+                        .Add()
+                        .FromH2(BuildConnection())
+                        .FromTable("TESTDATA")
+                        .WithAutomaticIndexes()
+                        .ExecuteAsync();
+                }
+                catch (DataliteException ex)
+                {
+                    _outputHelper.WriteLine(ex.Message);
+                    _outputHelper.WriteLine(JsonConvert.SerializeObject(ex.Data));
+                    throw;
+                }
 
                 var table = await connection.LoadTableAsync("TESTDATA");
                 table
@@ -96,12 +133,21 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
-                await connection
-                    .Add()
-                    .FromH2(BuildConnection())
-                    .FromQuery("SELECT id, first_name, last_name, email FROM TESTDATA WHERE Id <= 3", "QUERYDATA")
-                    .AddIndex("email")
-                    .ExecuteAsync();
+                try
+                {
+                    await connection
+                        .Add()
+                        .FromH2(BuildConnection())
+                        .FromQuery("SELECT id, first_name, last_name, email FROM TESTDATA WHERE Id <= 3", "QUERYDATA")
+                        .AddIndex("email")
+                        .ExecuteAsync();
+                }
+                catch (DataliteException ex)
+                {
+                    _outputHelper.WriteLine(ex.Message);
+                    _outputHelper.WriteLine(JsonConvert.SerializeObject(ex.Data));
+                    throw;
+                }
 
                 var table = await connection.LoadTableAsync("QUERYDATA");
                 table
@@ -120,12 +166,21 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
-                await connection
-                    .Add()
-                    .FromH2(BuildConnection())
-                    .FromTable(new TableIdentifier("TEST", "TESTVALUES"))
-                    .WithAutomaticIndexes()
-                    .ExecuteAsync();
+                try
+                {
+                    await connection
+                        .Add()
+                        .FromH2(BuildConnection())
+                        .FromTable(new TableIdentifier("TEST", "TESTVALUES"))
+                        .WithAutomaticIndexes()
+                        .ExecuteAsync();
+                }
+                catch (DataliteException ex)
+                {
+                    _outputHelper.WriteLine(ex.Message);
+                    _outputHelper.WriteLine(JsonConvert.SerializeObject(ex.Data));
+                    throw;
+                }
 
                 var table = await connection.LoadTableAsync("TEST_TESTVALUES");
                 table
