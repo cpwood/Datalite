@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
 
-namespace Datalite.Sources.Databases.CosmosDb
+namespace Datalite.Sources.Databases.CosmosDb.Tests
 {
     internal class FakeCosmosDbClient : ICosmosDbClient
     {
-        private readonly List<Dictionary<string, object>> _records = new List<Dictionary<string, object>>();
+        private readonly List<Dictionary<string, object>> _records = new();
 
         public void AddRecord(JObject obj)
         {

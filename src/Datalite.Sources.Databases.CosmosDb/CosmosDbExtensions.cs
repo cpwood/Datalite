@@ -35,7 +35,7 @@ namespace Datalite.Sources.Databases.CosmosDb
             return new CosmosDbCommand(context);
         }
 
-        internal static CosmosDbCommand FromCosmosDb(this AddDataCommand adc, FakeCosmosDbClient client)
+        internal static CosmosDbCommand FromCosmosDb(this AddDataCommand adc, ICosmosDbClient client)
         {
             var service = new CosmosDbService(adc.Connection, client);
             var context = new CosmosDbDataliteContext(ctx => service.ExecuteAsync(ctx));

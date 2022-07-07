@@ -8,7 +8,7 @@ using Azure.Core;
 using Azure.Data.Tables;
 using Azure.Data.Tables.Models;
 
-namespace Datalite.Sources.Databases.AzureTables
+namespace Datalite.Sources.Databases.AzureTables.Tests
 {
     internal class FakeAzureTableClient : IAzureTableClient
     {
