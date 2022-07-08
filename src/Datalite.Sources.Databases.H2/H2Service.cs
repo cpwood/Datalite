@@ -97,7 +97,9 @@ namespace Datalite.Sources.Databases.H2
                     {
                     { "jobId", jobId },
                     { "sql", sql },
-                    { "output", output }
+                    { "output", output },
+                    { "workingDirectory", JavaDirectory },
+                    { "arguments", psi.Arguments }
                     });
             }
 
