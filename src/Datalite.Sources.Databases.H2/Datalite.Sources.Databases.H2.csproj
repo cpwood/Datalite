@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="java\datalite\h2\bridge\Executor.class">
+    <None Update="java\datalite.h2.bridge.jar">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Pack>True</Pack>
       <PackagePath>lib\netstandard2.1\</PackagePath>

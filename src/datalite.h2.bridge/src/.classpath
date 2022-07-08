@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="C:/Users/chris.wood/Source/Repos/Datalite/src/datalite.h2.bridge/h2-2.1.214.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chris.wood/Source/Repos/Datalite/src/datalite.h2.bridge/jettison-1.5.0.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

@@ -80,9 +80,10 @@ namespace Datalite.Sources.Databases.H2
             };
 
             var h2Jar = _h2Connection.Version == H2Connection.H2Version.Version1 ? "h2-1.4.200" : "h2-2.1.214";
+            var separator = Environment.OSVersion.Platform == PlatformID.Win32NT ? ";" : ":";
 
             psi.Arguments =
-                $"-cp jettison-1.5.0/jettison-1.5.0.jar;{h2Jar}/{h2Jar}.jar;. datalite.h2.bridge.Executor \"{_h2Connection.ConnectionString}\" \"{_h2Connection.Username}\" \"{_h2Connection.Password}\" \"{sql}\" \"{jobId}\" {TemporaryWorkingDirectory}";
+                $"-cp jettison-1.5.0/jettison-1.5.0.jar{separator}{h2Jar}/{h2Jar}.jar{separator}datalite.h2.bridge.jar datalite.h2.bridge.Executor \"{_h2Connection.ConnectionString}\" \"{_h2Connection.Username}\" \"{_h2Connection.Password}\" \"{sql}\" \"{jobId}\" {TemporaryWorkingDirectory}";
 
             var output = await _processRunner.RunAsync(psi);
 
