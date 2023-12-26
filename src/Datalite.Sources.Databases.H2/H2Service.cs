@@ -44,7 +44,7 @@ namespace Datalite.Sources.Databases.H2
             {
                 if (string.IsNullOrEmpty(_javaDirectory))
                 {
-                    var dll = _fs.FileInfo.FromFileName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    var dll = _fs.FileInfo.New(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                     _javaDirectory = Path.Combine(
                         dll.DirectoryName!,
