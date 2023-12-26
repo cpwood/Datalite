@@ -54,13 +54,13 @@ namespace Datalite.Sources.Files.Parquet
             var tableDefinition = new TableDefinition(context.TableName);
 
             await using var fileStream = _fileSystem.File.OpenRead(context.Filename);
-            using var parquetReader = new ParquetReader(fileStream);
+            using var parquetReader = await ParquetReader.CreateAsync(fileStream);
 
             var dataFields = parquetReader.Schema.GetDataFields();
 
             foreach (var field in dataFields)
             {
-                tableDefinition.Columns[field.Name] = new Column(field.Name, field.ClrType, !field.HasNulls);
+                tableDefinition.Columns[field.Name] = new Column(field.Name, field.ClrType, !field.IsNullable);
             }
 
             return tableDefinition;
@@ -77,11 +77,11 @@ namespace Datalite.Sources.Files.Parquet
             builder.AppendLine(header);
 
             await using var fileStream = _fileSystem.File.OpenRead(context.Filename);
-            using var parquetReader = new ParquetReader(fileStream);
+            using var parquetReader = await ParquetReader.CreateAsync(fileStream);
 
             for (var i = 0; i < parquetReader.RowGroupCount; i++)
             {
-                var parquetColumns = parquetReader.ReadEntireRowGroup(i);
+                var parquetColumns = await parquetReader.ReadEntireRowGroupAsync(i);
                 var rows = parquetColumns[0].Data.LongLength;
 
                 for (long rowIndex = 0; rowIndex < rows; rowIndex++)
@@ -100,7 +100,7 @@ namespace Datalite.Sources.Files.Parquet
                     foreach (var column in parquetColumns)
                     {
 
-                        values.Add(column.Data?.GetValue(rowIndex) == null
+                        values.Add(column.Data.GetValue(rowIndex) == null
                             ? "NULL"
                             : column.Data.GetValue(rowIndex).Convert(column.Field.ClrType,
                                 tableDefinition.Columns[column.Field.Name].StorageClass,
