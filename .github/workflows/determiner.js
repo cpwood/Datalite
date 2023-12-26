@@ -9,7 +9,7 @@
  * should avoid doing this if there are no SQL Server changes.
  */
 
-'use strict';
+'use strict'; 
 
 const fs = require('fs');
 const exec = require('child_process').exec;
