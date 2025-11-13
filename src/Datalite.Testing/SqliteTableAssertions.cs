@@ -45,7 +45,7 @@ namespace Datalite.Testing
         /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> Exist()
         {
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Table != null)
                 .FailWith("The table was not found.");
             return new AndConstraint<SqliteTableAssertions>(this);
@@ -57,7 +57,7 @@ namespace Datalite.Testing
         /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> NotExist()
         {
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Table == null)
                 .FailWith("The table was found.");
             return new AndConstraint<SqliteTableAssertions>(this);
@@ -85,7 +85,7 @@ namespace Datalite.Testing
         /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveTheColumn(SqliteColumn column)
         {
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Table?.Columns.Values.Any(x =>
                     x.Name.ToLowerInvariant() == column.Name.ToLowerInvariant() && x.StorageClass == column.StorageClass && x.Required == column.Required) == true)
                 .FailWith(
@@ -100,7 +100,7 @@ namespace Datalite.Testing
         /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveAColumnCountOf(int columnCount)
         {
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Table?.Columns.Count == columnCount)
                 .FailWith($"Expected {columnCount} columns but found {Table?.Columns.Count ?? 0}.");
             return new AndConstraint<SqliteTableAssertions>(this);
@@ -115,7 +115,7 @@ namespace Datalite.Testing
         {
             columns = columns.Select(x => x.ToLowerInvariant()).ToArray();
 
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Table?.Indexes.Any(x => x.SequenceEqual(columns)) == true)
                 .FailWith($"An index comprising the columns {string.Join(", ", columns)} could not be found.");
             return new AndConstraint<SqliteTableAssertions>(this);
@@ -128,7 +128,7 @@ namespace Datalite.Testing
         /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveARowCountOf(int rowCount)
         {
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Table?.Rows.Length == rowCount)
                 .FailWith($"Expected {rowCount} rows but found {Table?.Rows.Length ?? 0}.");
             return new AndConstraint<SqliteTableAssertions>(this);
@@ -141,7 +141,7 @@ namespace Datalite.Testing
         /// <returns></returns>
         public AndConstraint<SqliteTableAssertions> HaveARowMatching(Dictionary<string, object> record)
         {
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Table?.Rows.Any(record.EqualsRecord) == true)
                 .FailWith($"Couldn't find a row matching the specification for the row with an identifier of {record["id"]}");
             return new AndConstraint<SqliteTableAssertions>(this);
