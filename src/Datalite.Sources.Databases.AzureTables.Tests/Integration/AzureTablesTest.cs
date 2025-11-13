@@ -95,7 +95,7 @@ namespace Datalite.Sources.Databases.AzureTables.Tests.Integration
                     .FromAzureTables(_server.GetConnectionString())
                     .FromTable("TestData")
                     .ToTable("QueryData")
-                    .WithFilter("id < 4")
+                    .WithFilter("id lt 4")
                     .AddIndex("email")
                     .ExecuteAsync();
 
