@@ -28,7 +28,7 @@ namespace Datalite.Sources.Databases.SqlServer.Tests.Integration
         /// <returns>A connection string.</returns>
         public string GetConnectionString(string database)
         {
-            return $"Persist Security Info=False;User ID=sa;Password=p455w0rd!2;Initial Catalog={database};Server={Address},1433";
+            return $"Persist Security Info=False;User ID=sa;Password=p455w0rd!2;Initial Catalog={database};Server={Address},1433;TrustServerCertificate=True;";
         }
 
         /// <inheritdoc />
