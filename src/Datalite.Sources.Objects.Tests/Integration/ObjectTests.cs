@@ -34,7 +34,7 @@ namespace Datalite.Sources.Objects.Tests.Integration
         }
 
         [Fact]
-        public async void ProcessesObjectsSuccessfullyWithColumns()
+        public async Task ProcessesObjectsSuccessfullyWithColumns()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -62,7 +62,7 @@ namespace Datalite.Sources.Objects.Tests.Integration
         }
 
         [Fact]
-        public async void ProcessesObjectsSuccessfullyWithoutColumns()
+        public async Task ProcessesObjectsSuccessfullyWithoutColumns()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -81,7 +81,7 @@ namespace Datalite.Sources.Objects.Tests.Integration
         }
 
         [Fact]
-        public async void ProcessesObjectsSuccessfullyWithoutColumnsNested()
+        public async Task ProcessesObjectsSuccessfullyWithoutColumnsNested()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -100,7 +100,7 @@ namespace Datalite.Sources.Objects.Tests.Integration
         }
 
         [Fact]
-        public async void ProcessesObjectsSuccessfullyWithoutColumnsNoNested()
+        public async Task ProcessesObjectsSuccessfullyWithoutColumnsNoNested()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

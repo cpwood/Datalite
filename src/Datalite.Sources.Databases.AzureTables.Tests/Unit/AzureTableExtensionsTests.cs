@@ -10,7 +10,7 @@ namespace Datalite.Sources.Databases.AzureTables.Tests.Unit
     public class AzureTableExtensionsTests : TestBaseClass
     {
         [Fact]
-        public async void NullConnectionStringRejected()
+        public async Task NullConnectionStringRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {

@@ -3,6 +3,7 @@ using Datalite.Destination;
 using Datalite.Testing;
 using Microsoft.Data.Sqlite;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
@@ -11,7 +12,7 @@ namespace Datalite.Tests.Destination
     public class SqliteConnectionExtensionsTests : TestBaseClass
     {
         [Fact]
-        public async void VacuumSuccessful()
+        public async Task VacuumSuccessful()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -20,7 +21,7 @@ namespace Datalite.Tests.Destination
         }
 
         [Fact]
-        public async void TableDroppedSuccessfully()
+        public async Task TableDroppedSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

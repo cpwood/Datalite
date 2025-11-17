@@ -1,10 +1,10 @@
-﻿using System.Data.SqlClient;
-using System.Data.SQLite;
-using Datalite.Destination;
+﻿using Datalite.Destination;
 using Datalite.Exceptions;
 using Datalite.Testing;
 using FluentAssertions;
+using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 using Xunit;
 
 namespace Datalite.Sources.Databases.Sqlite.Tests.Unit
@@ -12,7 +12,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Unit
     public class SqliteExtensionsTests : TestBaseClass
     {
         [Fact]
-        public async void ExtensionWithMicrosoftConnectionAccepted()
+        public async Task ExtensionWithMicrosoftConnectionAccepted()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -23,7 +23,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Unit
         }
 
         [Fact]
-        public async void ExtensionWithSystemDataConnectionAccepted()
+        public async Task ExtensionWithSystemDataConnectionAccepted()
         {
             await using var connection = new SQLiteConnection("Data Source=:memory:");
             await connection.OpenAsync();
@@ -37,7 +37,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Unit
         }
 
         [Fact]
-        public async void ExtensionWithNullConnectionStringRejected()
+        public async Task ExtensionWithNullConnectionStringRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -52,7 +52,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Unit
         }
 
         [Fact]
-        public async void ExtensionWithNullMicrosoftConnectionRejected()
+        public async Task ExtensionWithNullMicrosoftConnectionRejected()
         {
             SqliteConnection? connection = null;
 
@@ -69,7 +69,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Unit
         }
 
         [Fact]
-        public async void ExtensionWithNullSystemConnectionRejected()
+        public async Task ExtensionWithNullSystemConnectionRejected()
         {
             SQLiteConnection? connection = null;
 
@@ -86,7 +86,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Unit
         }
 
         [Fact]
-        public async void ExtensionWithSqlServerConnectionRejected()
+        public async Task ExtensionWithSqlServerConnectionRejected()
         {
             // This is a SQL Server connection.
             var connection = new SqlConnection();

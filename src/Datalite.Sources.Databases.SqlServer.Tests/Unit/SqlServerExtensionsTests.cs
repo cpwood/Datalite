@@ -1,9 +1,9 @@
-﻿using System.Data.SqlClient;
-using System.Threading.Tasks;
-using Datalite.Destination;
+﻿using Datalite.Destination;
 using Datalite.Exceptions;
 using Datalite.Testing;
 using FluentAssertions;
+using Microsoft.Data.SqlClient;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Datalite.Sources.Databases.SqlServer.Tests.Unit
@@ -11,7 +11,7 @@ namespace Datalite.Sources.Databases.SqlServer.Tests.Unit
     public class SqlServerExtensionsTests : TestBaseClass
     {
         [Fact]
-        public async void SqlServerConnectionAccepted()
+        public async Task SqlServerConnectionAccepted()
         {
             var connection = new SqlConnection();
 
@@ -24,7 +24,7 @@ namespace Datalite.Sources.Databases.SqlServer.Tests.Unit
         }
 
         [Fact]
-        public async void NullConnectionStringRejected()
+        public async Task NullConnectionStringRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -40,7 +40,7 @@ namespace Datalite.Sources.Databases.SqlServer.Tests.Unit
         }
 
         [Fact]
-        public async void NullConnectionRejected()
+        public async Task NullConnectionRejected()
         {
             SqlConnection? connection = null;
 

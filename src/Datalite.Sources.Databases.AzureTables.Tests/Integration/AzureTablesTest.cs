@@ -1,4 +1,5 @@
-﻿using Datalite.Destination;
+﻿using System.Threading.Tasks;
+using Datalite.Destination;
 using Datalite.Testing;
 using Xunit;
 
@@ -14,7 +15,7 @@ namespace Datalite.Sources.Databases.AzureTables.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTablesSuccessfully()
+        public async Task CopiesTablesSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -38,7 +39,7 @@ namespace Datalite.Sources.Databases.AzureTables.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTablesScopedSuccessfully()
+        public async Task CopiesTablesScopedSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -62,7 +63,7 @@ namespace Datalite.Sources.Databases.AzureTables.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTableSuccessfully()
+        public async Task CopiesTableSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -86,7 +87,7 @@ namespace Datalite.Sources.Databases.AzureTables.Tests.Integration
         }
 
         [Fact]
-        public async void PerformsQuerySuccessfully()
+        public async Task PerformsQuerySuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -113,7 +114,7 @@ namespace Datalite.Sources.Databases.AzureTables.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTableWithColumnsSuccessfully()
+        public async Task CopiesTableWithColumnsSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

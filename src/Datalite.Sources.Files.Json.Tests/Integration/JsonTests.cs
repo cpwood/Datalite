@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Datalite.Destination;
 using Datalite.Testing;
 using Xunit;
@@ -15,7 +16,7 @@ namespace Datalite.Sources.Files.Json.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsJsonSuccessfullyWithColumns()
+        public async Task ReadsJsonSuccessfullyWithColumns()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -43,7 +44,7 @@ namespace Datalite.Sources.Files.Json.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsJsonSuccessfullyWithoutColumns()
+        public async Task ReadsJsonSuccessfullyWithoutColumns()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -62,7 +63,7 @@ namespace Datalite.Sources.Files.Json.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsNestedJsonSuccessfullyWithSerialization()
+        public async Task ReadsNestedJsonSuccessfullyWithSerialization()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -81,7 +82,7 @@ namespace Datalite.Sources.Files.Json.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsNestedJsonSuccessfullyWithoutSerialization()
+        public async Task ReadsNestedJsonSuccessfullyWithoutSerialization()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

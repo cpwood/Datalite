@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Dapper;
+﻿using Dapper;
 using Datalite.Destination;
 using Datalite.Exceptions;
 using Datalite.Sources.Databases.Shared;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Datalite.Sources.Databases.SqlServer
 {

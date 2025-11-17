@@ -33,7 +33,7 @@ namespace Datalite.Sources.Databases.CosmosDb.Tests.Integration
         }
 
         [Fact]
-        public async void PerformsQuerySuccessfully()
+        public async Task PerformsQuerySuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

@@ -22,7 +22,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTablesSuccessfully()
+        public async Task CopiesTablesSuccessfully()
         {
             await using var sourceConnection = new SQLiteConnection(BuildConnectionString());
             await sourceConnection.OpenAsync();
@@ -49,7 +49,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTablesScopedSuccessfully()
+        public async Task CopiesTablesScopedSuccessfully()
         {
             await using var sourceConnection = new SQLiteConnection(BuildConnectionString());
             await sourceConnection.OpenAsync();
@@ -76,7 +76,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTableSuccessfully()
+        public async Task CopiesTableSuccessfully()
         {
             await using var sourceConnection = new SQLiteConnection(BuildConnectionString());
             await sourceConnection.OpenAsync();
@@ -103,7 +103,7 @@ namespace Datalite.Sources.Databases.Sqlite.Tests.Integration
         }
 
         [Fact]
-        public async void PerformsQuerySuccessfully()
+        public async Task PerformsQuerySuccessfully()
         {
             await using var sourceConnection = new SQLiteConnection(BuildConnectionString());
             await sourceConnection.OpenAsync();

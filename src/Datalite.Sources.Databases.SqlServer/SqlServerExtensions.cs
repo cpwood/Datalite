@@ -1,6 +1,6 @@
-using System.Data.SqlClient;
 using Datalite.Exceptions;
 using Datalite.Sources.Databases.Shared;
+using Microsoft.Data.SqlClient;
 
 namespace Datalite.Sources.Databases.SqlServer
 {

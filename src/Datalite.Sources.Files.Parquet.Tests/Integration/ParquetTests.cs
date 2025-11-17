@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Datalite.Destination;
 using Datalite.Testing;
 using Xunit;
@@ -15,7 +16,7 @@ namespace Datalite.Sources.Files.Parquet.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsParquetSuccessfully()
+        public async Task ReadsParquetSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

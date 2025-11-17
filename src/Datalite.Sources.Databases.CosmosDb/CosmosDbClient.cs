@@ -14,7 +14,7 @@ namespace Datalite.Sources.Databases.CosmosDb
 
         public CosmosDbClient(CosmosDbConnection connection)
         {
-            var client = new CosmosClient(connection.Url, connection.Key, CosmosOptions);
+            var client = new CosmosClient(connection.Url, connection.Key, connection.Options ?? CosmosOptions);
             _container = client.GetContainer(connection.Database, connection.Container);
         }
 

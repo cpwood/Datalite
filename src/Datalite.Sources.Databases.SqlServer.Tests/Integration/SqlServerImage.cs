@@ -1,8 +1,8 @@
-﻿using System.Data.SqlClient;
+﻿using Datalite.Testing;
+using Microsoft.Data.SqlClient;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using Datalite.Testing;
 
 namespace Datalite.Sources.Databases.SqlServer.Tests.Integration
 {
@@ -15,7 +15,7 @@ namespace Datalite.Sources.Databases.SqlServer.Tests.Integration
         {
             Build("mcr.microsoft.com/mssql/server:2022-latest",
                 1433,
-                new[] { "ACCEPT_EULA=Y", "SA_PASSWORD=p455w0rd!2" });
+                ["ACCEPT_EULA=Y", "SA_PASSWORD=p455w0rd!2"]);
         }
 
         /// <inheritdoc />

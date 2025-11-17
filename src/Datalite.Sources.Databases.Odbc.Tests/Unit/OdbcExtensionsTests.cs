@@ -10,7 +10,7 @@ namespace Datalite.Sources.Databases.Odbc.Tests.Unit
     public class OdbcExtensionsTests : TestBaseClass
     {
         [WindowsOnlyFact]
-        public async void NullConnectionStringRejected()
+        public async Task NullConnectionStringRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -26,7 +26,7 @@ namespace Datalite.Sources.Databases.Odbc.Tests.Unit
         }
 
         [WindowsOnlyFact]
-        public async void NullConnectionRejected()
+        public async Task NullConnectionRejected()
         {
             OdbcConnection? connection = null;
 

@@ -19,7 +19,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void FileAccepted()
+        public async Task FileAccepted()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -30,7 +30,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void NullFilenameRejected()
+        public async Task NullFilenameRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -46,7 +46,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void NoSuchFileRejected()
+        public async Task NoSuchFileRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -62,7 +62,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void FileAndTableAccepted()
+        public async Task FileAndTableAccepted()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -73,7 +73,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void FileAndTableAndFilesystemAccepted()
+        public async Task FileAndTableAndFilesystemAccepted()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -84,7 +84,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void NullFilenameAndTableAndFilesystemRejected()
+        public async Task NullFilenameAndTableAndFilesystemRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -100,7 +100,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void NoSuchFileAndTableAndFilesystemRejected()
+        public async Task NoSuchFileAndTableAndFilesystemRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -116,7 +116,7 @@ namespace Datalite.Sources.Files.Json.Tests.Unit
         }
 
         [Fact]
-        public async void FilenameAndInvalidTableAndFilesystemRejected()
+        public async Task FilenameAndInvalidTableAndFilesystemRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {

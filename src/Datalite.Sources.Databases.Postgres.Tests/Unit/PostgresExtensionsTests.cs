@@ -11,7 +11,7 @@ namespace Datalite.Sources.Databases.Postgres.Tests.Unit
     public class PostgresExtensionsTests : TestBaseClass
     {
         [Fact]
-        public async void SqlServerConnectionAccepted()
+        public async Task PostgresConnectionAccepted()
         {
             var connection = new NpgsqlConnection();
 
@@ -24,7 +24,7 @@ namespace Datalite.Sources.Databases.Postgres.Tests.Unit
         }
 
         [Fact]
-        public async void NullConnectionStringRejected()
+        public async Task NullConnectionStringRejected()
         {
             await WithSqliteInMemoryConnection(conn =>
             {
@@ -40,7 +40,7 @@ namespace Datalite.Sources.Databases.Postgres.Tests.Unit
         }
 
         [Fact]
-        public async void NullConnectionRejected()
+        public async Task NullConnectionRejected()
         {
             NpgsqlConnection? connection = null;
 

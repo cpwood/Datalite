@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Datalite.Destination;
 using Datalite.Testing;
 using Xunit;
@@ -15,7 +16,7 @@ namespace Datalite.Sources.Files.Csv.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsCsvSuccessfullyWithColumnsAndNulls()
+        public async Task ReadsCsvSuccessfullyWithColumnsAndNulls()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -47,7 +48,7 @@ namespace Datalite.Sources.Files.Csv.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsCsvSuccessfullyWithColumnsAndEmptyStringAndCurrency()
+        public async Task ReadsCsvSuccessfullyWithColumnsAndEmptyStringAndCurrency()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -81,7 +82,7 @@ namespace Datalite.Sources.Files.Csv.Tests.Integration
         }
 
         [Fact]
-        public async void ReadsCsvSuccessfullyWithoutColumns()
+        public async Task ReadsCsvSuccessfullyWithoutColumns()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

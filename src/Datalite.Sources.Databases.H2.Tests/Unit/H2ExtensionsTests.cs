@@ -10,7 +10,7 @@ namespace Datalite.Sources.Databases.H2.Tests.Unit
     public class H2ExtensionsTests : TestBaseClass
     {
         [Fact]
-        public async void ExtensionWithNullMicrosoftConnectionRejected()
+        public async Task ExtensionWithNullMicrosoftConnectionRejected()
         {
             H2Connection? connection = null;
 

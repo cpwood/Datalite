@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Datalite.Destination;
 using Datalite.Testing;
 
@@ -16,7 +17,7 @@ namespace Datalite.Sources.Databases.Odbc.Tests.Integration
         
 
         [WindowsOnlyFact]
-        public async void CopiesTableSuccessfully()
+        public async Task CopiesTableSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -36,7 +37,7 @@ namespace Datalite.Sources.Databases.Odbc.Tests.Integration
         }
 
         [WindowsOnlyFact]
-        public async void PerformsQuerySuccessfully()
+        public async Task PerformsQuerySuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {

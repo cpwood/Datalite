@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Datalite.Destination;
 using Datalite.Exceptions;
 using Datalite.Sources.Databases.Shared;
@@ -30,7 +31,7 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTablesSuccessfully()
+        public async Task CopiesTablesSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -63,7 +64,7 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTablesScopedSuccessfully()
+        public async Task CopiesTablesScopedSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -96,7 +97,7 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesTableSuccessfully()
+        public async Task CopiesTableSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -129,7 +130,7 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         }
 
         [Fact]
-        public async void PerformsQuerySuccessfully()
+        public async Task PerformsQuerySuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
@@ -162,7 +163,7 @@ namespace Datalite.Sources.Databases.H2.Tests.Integration
         }
 
         [Fact]
-        public async void CopiesSchemaTableSuccessfully()
+        public async Task CopiesSchemaTableSuccessfully()
         {
             await WithSqliteInMemoryConnection(async connection =>
             {
