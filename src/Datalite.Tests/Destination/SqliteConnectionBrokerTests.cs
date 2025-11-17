@@ -1,7 +1,7 @@
-﻿using System;
-using System.Data.SqlClient;
-using Datalite.Destination;
+﻿using Datalite.Destination;
 using FluentAssertions;
+using Microsoft.Data.SqlClient;
+using System;
 using Xunit;
 
 namespace Datalite.Tests.Destination

@@ -1,10 +1,10 @@
-﻿using System;
-using Datalite.Destination;
+﻿using Datalite.Destination;
 using Datalite.Testing;
-using Microsoft.Data.Sqlite;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Datalite.Tests.Destination

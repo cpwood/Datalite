@@ -93,7 +93,7 @@ namespace Datalite.Sources.Databases.AzureTables
             if (string.IsNullOrEmpty(outputTable))
                 outputTable = table;
 
-            tableDefinition ??= await DetermineTableDefinition(table, outputTable, filter);
+            tableDefinition ??= await DetermineTableDefinition(table, outputTable);
 
             await _sqliteConnection.CreateTableAsync(tableDefinition);
 
@@ -111,11 +111,11 @@ namespace Datalite.Sources.Databases.AzureTables
             }
         }
 
-        private async Task<TableDefinition> DetermineTableDefinition(string table, string outputTable, string? filter)
+        private async Task<TableDefinition> DetermineTableDefinition(string table, string outputTable)
         {
             var count = 0;
 
-            var items = _tableClient.QueryRecordsAsync(table, filter);
+            var items = _tableClient.QueryRecordsAsync(table);
 
             var columns = new Dictionary<string, Column>
         {
